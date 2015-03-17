@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6346D8341AB51B7900E1530E /* CocoaOSC-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6346D8251AB51B7900E1530E /* CocoaOSC-Info.plist */; };
+		6346D8351AB51B7900E1530E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6346D8281AB51B7900E1530E /* InfoPlist.strings */; };
+		6346D8361AB51B7900E1530E /* NS+OSCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D82B1AB51B7900E1530E /* NS+OSCAdditions.m */; };
+		6346D8371AB51B7900E1530E /* OSCConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D82D1AB51B7900E1530E /* OSCConnection.m */; };
+		6346D8381AB51B7900E1530E /* OSCDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D8301AB51B7900E1530E /* OSCDispatcher.m */; };
+		6346D8391AB51B7900E1530E /* OSCPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D8321AB51B7900E1530E /* OSCPacket.m */; };
+		6346D83F1AB51BA600E1530E /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D83C1AB51BA600E1530E /* AsyncSocket.m */; };
+		6346D8401AB51BA600E1530E /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D83E1AB51BA600E1530E /* AsyncUdpSocket.m */; };
+		6346D8461AB51BAF00E1530E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D8431AB51BAF00E1530E /* GCDAsyncSocket.m */; };
+		6346D8471AB51BAF00E1530E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6346D8451AB51BAF00E1530E /* GCDAsyncUdpSocket.m */; };
+		6346D8501AB5338F00E1530E /* Sensors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6346D84F1AB5338E00E1530E /* Sensors.mm */; };
+		6346D8521AB53A0D00E1530E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8511AB53A0D00E1530E /* CoreAudio.framework */; };
+		6346D8541AB53A1500E1530E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8531AB53A1500E1530E /* CoreMotion.framework */; };
+		6346D8561AB53A3A00E1530E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8551AB53A3A00E1530E /* AudioToolbox.framework */; };
+		6346D8581AB53A4C00E1530E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8571AB53A4C00E1530E /* AVFoundation.framework */; };
 		63A501941AAD5BEA009BD989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501931AAD5BEA009BD989 /* main.m */; };
 		63A501971AAD5BEA009BD989 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501961AAD5BEA009BD989 /* AppDelegate.m */; };
 		63A5019A1AAD5BEA009BD989 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501991AAD5BEA009BD989 /* ViewController.m */; };
@@ -14,6 +29,7 @@
 		63A5019F1AAD5BEA009BD989 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A5019E1AAD5BEA009BD989 /* Images.xcassets */; };
 		63A501A21AAD5BEA009BD989 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A501A01AAD5BEA009BD989 /* LaunchScreen.xib */; };
 		63A501AE1AAD5BEA009BD989 /* RIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501AD1AAD5BEA009BD989 /* RIMETests.m */; };
+		63A501BC1AAD65DB009BD989 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501BB1AAD65DB009BD989 /* ConnectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +43,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6346D8251AB51B7900E1530E /* CocoaOSC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CocoaOSC-Info.plist"; sourceTree = "<group>"; };
+		6346D8261AB51B7900E1530E /* CocoaOSC-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CocoaOSC-Prefix.pch"; sourceTree = "<group>"; };
+		6346D8271AB51B7900E1530E /* CocoaOSC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaOSC.h; sourceTree = "<group>"; };
+		6346D8291AB51B7900E1530E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6346D82A1AB51B7900E1530E /* NS+OSCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS+OSCAdditions.h"; sourceTree = "<group>"; };
+		6346D82B1AB51B7900E1530E /* NS+OSCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS+OSCAdditions.m"; sourceTree = "<group>"; };
+		6346D82C1AB51B7900E1530E /* OSCConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCConnection.h; sourceTree = "<group>"; };
+		6346D82D1AB51B7900E1530E /* OSCConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCConnection.m; sourceTree = "<group>"; };
+		6346D82E1AB51B7900E1530E /* OSCConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCConnectionDelegate.h; sourceTree = "<group>"; };
+		6346D82F1AB51B7900E1530E /* OSCDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCDispatcher.h; sourceTree = "<group>"; };
+		6346D8301AB51B7900E1530E /* OSCDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCDispatcher.m; sourceTree = "<group>"; };
+		6346D8311AB51B7900E1530E /* OSCPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCPacket.h; sourceTree = "<group>"; };
+		6346D8321AB51B7900E1530E /* OSCPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCPacket.m; sourceTree = "<group>"; };
+		6346D8331AB51B7900E1530E /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		6346D83B1AB51BA600E1530E /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		6346D83C1AB51BA600E1530E /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		6346D83D1AB51BA600E1530E /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		6346D83E1AB51BA600E1530E /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		6346D8421AB51BAF00E1530E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		6346D8431AB51BAF00E1530E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		6346D8441AB51BAF00E1530E /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		6346D8451AB51BAF00E1530E /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		6346D8491AB5272000E1530E /* AsyncSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		6346D84A1AB5272000E1530E /* AsyncSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		6346D84B1AB5272000E1530E /* AsyncUdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		6346D84C1AB5272000E1530E /* AsyncUdpSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		6346D84D1AB527E700E1530E /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
+		6346D84E1AB5338E00E1530E /* Sensors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensors.h; sourceTree = "<group>"; };
+		6346D84F1AB5338E00E1530E /* Sensors.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sensors.mm; sourceTree = "<group>"; };
+		6346D8511AB53A0D00E1530E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		6346D8531AB53A1500E1530E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		6346D8551AB53A3A00E1530E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6346D8571AB53A4C00E1530E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		63A5018E1AAD5BEA009BD989 /* RIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A501921AAD5BEA009BD989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A501931AAD5BEA009BD989 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +89,8 @@
 		63A501A71AAD5BEA009BD989 /* RIMETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RIMETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A501AC1AAD5BEA009BD989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A501AD1AAD5BEA009BD989 /* RIMETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIMETests.m; sourceTree = "<group>"; };
+		63A501BA1AAD65DB009BD989 /* ConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectViewController.h; sourceTree = "<group>"; };
+		63A501BB1AAD65DB009BD989 /* ConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +98,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6346D8581AB53A4C00E1530E /* AVFoundation.framework in Frameworks */,
+				6346D8561AB53A3A00E1530E /* AudioToolbox.framework in Frameworks */,
+				6346D8541AB53A1500E1530E /* CoreMotion.framework in Frameworks */,
+				6346D8521AB53A0D00E1530E /* CoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +115,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6346D8241AB51B7800E1530E /* CocoaOSC */ = {
+			isa = PBXGroup;
+			children = (
+				6346D8251AB51B7900E1530E /* CocoaOSC-Info.plist */,
+				6346D8261AB51B7900E1530E /* CocoaOSC-Prefix.pch */,
+				6346D8271AB51B7900E1530E /* CocoaOSC.h */,
+				6346D8281AB51B7900E1530E /* InfoPlist.strings */,
+				6346D82A1AB51B7900E1530E /* NS+OSCAdditions.h */,
+				6346D82B1AB51B7900E1530E /* NS+OSCAdditions.m */,
+				6346D82C1AB51B7900E1530E /* OSCConnection.h */,
+				6346D82D1AB51B7900E1530E /* OSCConnection.m */,
+				6346D82E1AB51B7900E1530E /* OSCConnectionDelegate.h */,
+				6346D82F1AB51B7900E1530E /* OSCDispatcher.h */,
+				6346D8301AB51B7900E1530E /* OSCDispatcher.m */,
+				6346D8311AB51B7900E1530E /* OSCPacket.h */,
+				6346D8321AB51B7900E1530E /* OSCPacket.m */,
+				6346D8331AB51B7900E1530E /* RegexKitLite.h */,
+			);
+			path = CocoaOSC;
+			sourceTree = "<group>";
+		};
+		6346D83A1AB51BA600E1530E /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				6346D83B1AB51BA600E1530E /* AsyncSocket.h */,
+				6346D83C1AB51BA600E1530E /* AsyncSocket.m */,
+				6346D83D1AB51BA600E1530E /* AsyncUdpSocket.h */,
+				6346D83E1AB51BA600E1530E /* AsyncUdpSocket.m */,
+			);
+			path = AsyncSocket;
+			sourceTree = "<group>";
+		};
+		6346D8411AB51BAF00E1530E /* GCDAsync */ = {
+			isa = PBXGroup;
+			children = (
+				6346D8421AB51BAF00E1530E /* GCDAsyncSocket.h */,
+				6346D8431AB51BAF00E1530E /* GCDAsyncSocket.m */,
+				6346D8441AB51BAF00E1530E /* GCDAsyncUdpSocket.h */,
+				6346D8451AB51BAF00E1530E /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCDAsync;
+			sourceTree = "<group>";
+		};
+		6346D8481AB5272000E1530E /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				6346D8491AB5272000E1530E /* AsyncSocket.h */,
+				6346D84A1AB5272000E1530E /* AsyncSocket.m */,
+				6346D84B1AB5272000E1530E /* AsyncUdpSocket.h */,
+				6346D84C1AB5272000E1530E /* AsyncUdpSocket.m */,
+			);
+			name = AsyncSocket;
+			path = RIME/AsyncSocket;
+			sourceTree = "<group>";
+		};
 		63A501851AAD5BEA009BD989 = {
 			isa = PBXGroup;
 			children = (
+				6346D8571AB53A4C00E1530E /* AVFoundation.framework */,
+				6346D8551AB53A3A00E1530E /* AudioToolbox.framework */,
+				6346D8531AB53A1500E1530E /* CoreMotion.framework */,
+				6346D8511AB53A0D00E1530E /* CoreAudio.framework */,
+				6346D8481AB5272000E1530E /* AsyncSocket */,
 				63A501901AAD5BEA009BD989 /* RIME */,
 				63A501AA1AAD5BEA009BD989 /* RIMETests */,
 				63A5018F1AAD5BEA009BD989 /* Products */,
@@ -81,10 +196,18 @@
 		63A501901AAD5BEA009BD989 /* RIME */ = {
 			isa = PBXGroup;
 			children = (
+				6346D8411AB51BAF00E1530E /* GCDAsync */,
+				6346D83A1AB51BA600E1530E /* AsyncSocket */,
+				6346D8241AB51B7800E1530E /* CocoaOSC */,
 				63A501951AAD5BEA009BD989 /* AppDelegate.h */,
 				63A501961AAD5BEA009BD989 /* AppDelegate.m */,
+				6346D84D1AB527E700E1530E /* CoreDataHelper.h */,
+				63A501BA1AAD65DB009BD989 /* ConnectViewController.h */,
+				63A501BB1AAD65DB009BD989 /* ConnectViewController.m */,
 				63A501981AAD5BEA009BD989 /* ViewController.h */,
 				63A501991AAD5BEA009BD989 /* ViewController.m */,
+				6346D84E1AB5338E00E1530E /* Sensors.h */,
+				6346D84F1AB5338E00E1530E /* Sensors.mm */,
 				63A5019B1AAD5BEA009BD989 /* Main.storyboard */,
 				63A5019E1AAD5BEA009BD989 /* Images.xcassets */,
 				63A501A01AAD5BEA009BD989 /* LaunchScreen.xib */,
@@ -199,6 +322,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6346D8351AB51B7900E1530E /* InfoPlist.strings in Resources */,
+				6346D8341AB51B7900E1530E /* CocoaOSC-Info.plist in Resources */,
 				63A5019D1AAD5BEA009BD989 /* Main.storyboard in Resources */,
 				63A501A21AAD5BEA009BD989 /* LaunchScreen.xib in Resources */,
 				63A5019F1AAD5BEA009BD989 /* Images.xcassets in Resources */,
@@ -219,8 +344,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A501BC1AAD65DB009BD989 /* ConnectViewController.m in Sources */,
+				6346D8401AB51BA600E1530E /* AsyncUdpSocket.m in Sources */,
+				6346D8371AB51B7900E1530E /* OSCConnection.m in Sources */,
 				63A5019A1AAD5BEA009BD989 /* ViewController.m in Sources */,
+				6346D8501AB5338F00E1530E /* Sensors.mm in Sources */,
+				6346D8471AB51BAF00E1530E /* GCDAsyncUdpSocket.m in Sources */,
+				6346D83F1AB51BA600E1530E /* AsyncSocket.m in Sources */,
+				6346D8391AB51B7900E1530E /* OSCPacket.m in Sources */,
+				6346D8381AB51B7900E1530E /* OSCDispatcher.m in Sources */,
+				6346D8361AB51B7900E1530E /* NS+OSCAdditions.m in Sources */,
 				63A501971AAD5BEA009BD989 /* AppDelegate.m in Sources */,
+				6346D8461AB51BAF00E1530E /* GCDAsyncSocket.m in Sources */,
 				63A501941AAD5BEA009BD989 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +379,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6346D8281AB51B7900E1530E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6346D8291AB51B7900E1530E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		63A5019B1AAD5BEA009BD989 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -345,6 +488,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/**",
+				);
 				INFOPLIST_FILE = RIME/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -355,6 +505,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/**",
+				);
 				INFOPLIST_FILE = RIME/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,6 +571,7 @@
 				63A501B31AAD5BEA009BD989 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63A501B41AAD5BEA009BD989 /* Build configuration list for PBXNativeTarget "RIMETests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +580,7 @@
 				63A501B61AAD5BEA009BD989 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
