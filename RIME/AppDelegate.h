@@ -8,9 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+#import "CocoaOSC.h"
+#import "CoreDataHelper.h"
+#import "AsyncUdpSocket.h"
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationBarDelegate>{
+
+    
+    
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property OSCConnection *connection;
+@property(nonatomic,readonly,retain) UINavigationController *navigationController;
+
+
+
+
 
 
 @end
