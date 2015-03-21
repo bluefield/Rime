@@ -180,6 +180,10 @@ static char UIB_PROPERTY_KEY;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     //textField.delegate = self;
+    
+    UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(10, 110, 0, 0)];
+    [mySwitch addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:mySwitch];
     [self.view addSubview:textField];
     
     
@@ -219,7 +223,9 @@ static char UIB_PROPERTY_KEY;
     
    NSLog(@"Button Pressed!");
     [self createButton: @"button1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0];
-    [self createSlider:@"Testslider" xposition:10 yposition:450 height:300 width:20];
+    [self createVSlider:@"Testslider" xposition:10 yposition:450 height:300 width:20];
+    [self createHSlider:@"Testslider2" xposition:10 yposition:400 height:300 width:20];
+
  
     NSLog(@"button ID is:%@", button.property);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -250,6 +256,15 @@ static char UIB_PROPERTY_KEY;
     [self.connection sendPacket:message toHost:ip port:port];
    
 }
+- (void)changeSwitch:(id)sender{
+    if([sender isOn]){
+        // Execute any code when the switch is ON
+        NSLog(@"Switch is ON");
+    } else{
+        // Execute any code when the switch is OFF
+        NSLog(@"Switch is OFF");
+    }
+}
 
 //------------------Create Controls functions---------------------------------
 
@@ -279,7 +294,7 @@ static char UIB_PROPERTY_KEY;
 
 }
 
--(void) createSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
+-(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
     
     CGRect frame = CGRectMake(x, y, height, width);
     UISlider *slider = [[UISlider alloc] initWithFrame:frame];
@@ -290,6 +305,22 @@ static char UIB_PROPERTY_KEY;
     slider.continuous = YES;
     slider.value = 25.0;
     slider.property=stitle;
+    CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 0.5);
+    slider.transform = trans;
+    [self.view addSubview:slider];
+}
+-(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
+    
+    CGRect frame = CGRectMake(x, y, height, width);
+    UISlider *slider = [[UISlider alloc] initWithFrame:frame];
+    [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+    [slider setBackgroundColor:[UIColor clearColor]];
+    slider.minimumValue = 0.0;
+    slider.maximumValue = 50.0;
+    slider.continuous = YES;
+    slider.value = 25.0;
+    slider.property=stitle;
+   
     [self.view addSubview:slider];
 }
 

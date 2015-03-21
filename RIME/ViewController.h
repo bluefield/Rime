@@ -35,7 +35,8 @@
 - (IBAction)sliderAction:(UISlider *)slider;
 - (void) createButton:(NSString *) bnumber xposition:(float) x yposition:(float) y
                 height:(float) height width:(float)width;
--(void) createSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width;
+-(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width;
+-(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width;
 -(void)gotoConnection;
 -(void)getControls;
 -(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName;

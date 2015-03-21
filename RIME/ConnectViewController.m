@@ -39,6 +39,8 @@
     self.title = @"Connection Set Up";
     
 
+
+
     NSError *error = nil;
     //---------------bind to UDPserver------------
 //    self.connection = [[OSCConnection alloc] init];
@@ -84,7 +86,10 @@
     
     // Set the toolbar as accessory view of an UITextField object
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
+    if([[defaults objectForKey:@"ip"] isEqual:NULL]){
+        [defaults setObject:@"192.168.1.1" forKey:@"ip"];
+    }
+   
     
     ip=[defaults objectForKey:@"ip"];
     iptextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 100, 200, 30)];
@@ -100,6 +105,15 @@
         iptextField.text=[iptextField.text stringByAppendingString:ip];
     }
    
+    if([defaults objectForKey:@"port"]==NULL){
+        NSString *temp=@"12000";
+        NSNumber *tempDefault;
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        tempDefault=[f numberFromString:temp];
+        
+        [defaults setObject: tempDefault forKey:@"port"];
+    }
     
     port=[defaults objectForKey:@"port"];
     porttextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 130, 200, 30)];
@@ -115,7 +129,9 @@
         NSString *myString = [port stringValue];
         porttextField.text=[porttextField.text stringByAppendingString:myString];
     }
-    
+    if([[defaults objectForKey:@"ID"]isEqual:NULL]){
+        [defaults setObject:@"David" forKey:@"ID"];
+    }
     
     ID=[defaults objectForKey:@"ID"];
     idtextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 160, 200, 30)];
@@ -142,6 +158,7 @@
     //[connectbutton setBackgroundColor:[UIColor blackColor]];
     [connectbutton setBackgroundImage:[UIImage imageNamed:@"blackButton.png"] forState:UIControlStateNormal];
     
+  
     [self.view addSubview:idtextField];
     [self.view addSubview:iptextField];
     [self.view addSubview:porttextField];
