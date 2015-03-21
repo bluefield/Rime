@@ -8,14 +8,18 @@
 
 #import "ViewController.h"
 #import "ConnectViewController.h"
+
 #import <objc/runtime.h>
 #import "CocoaOSC.h"
 #import "CoreDataHelper.h"
 #import "AsyncUdpSocket.h"
 #import "Sensors.h"
 #import <CoreMotion/CoreMotion.h>
+#import <GCDAsyncUdpSocket.h>
 
 
+
+//@synthesize connectView;
 
 @interface ViewController ()
 
@@ -62,8 +66,34 @@ static char UIB_PROPERTY_KEY;
 
 @implementation ViewController
 
+//- (void)ConnectViewControllerDidFinish:(ConnectViewController*)connectViewController
+//{
+//    //NSArray* someArray = secondViewController.someArray
+//    // Do something with the array
+//    //ip= connectViewController.ip;
+//    ip=appDel.ip;
+//    
+//    long tempPort =[appDel.port longValue];
+//    //[connectViewController.port longValue];
+//    port=tempPort;
+//    NSLog(@"back to main page and ip:%@ port:%ld", ip, port);
+//    
+//}
+    ConnectViewController *appDel;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSError *error = nil;
+    [self saveControls:200 forName:@"David"];
+    [self getControls];
+
+    
+    
+    appDel=(ConnectViewController *)[[UIApplication sharedApplication]delegate];
+    
+  
+   
+    
     self.title = @"RIME";
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 30.0f)];
@@ -89,14 +119,17 @@ static char UIB_PROPERTY_KEY;
 
    
     //UDP Connection Set Up-------------------
-//    self.connection = [[OSCConnection alloc] init];
-//    self.connection.delegate = self;
-//    
-//    NSError *error;
-//    if (![self.connection bindToAddress:nil port:12000 error:&error])
-//    {
-//        NSLog(@"Could not bind UDP connection: %@", error);
-//    }
+    self.connection = [[OSCConnection alloc] init];
+    self.connection.delegate = self;
+   self.connection.continuouslyReceivePackets = YES;
+    
+    
+    if (![self.connection bindToAddress:nil port:11000 error:&error])
+    {
+        NSLog(@"Could not bind UDP connection: %@", error);
+    }
+    [self.connection receivePacket];
+
     
     
 //------------------------test view setup---------------
@@ -109,11 +142,11 @@ static char UIB_PROPERTY_KEY;
      button.frame = CGRectMake(110.0f, 200.0f, 100.0f, 40.0f);
      [button setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
     
-
+    button.property=@"button0";
     [button addTarget:self
-               action:@selector(buttonPressed:)
+               action:@selector(buttonReleased:)
      forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Press Me!" forState:UIControlStateNormal];
+    [button setTitle:@"button0" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //[button setBackgroundColor:[UIColor blueColor]];
 
@@ -164,17 +197,21 @@ static char UIB_PROPERTY_KEY;
 }
 //----------------------------------Controll Actions-------------------------------
 
-- (IBAction)buttontest:(UIButton*)button {
-   
+- (IBAction)buttonPressing:(UIButton*)button {
+    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
+    message.address = @"/button";
+    [message addString:button.property];
+    [message addInt:1];
+    [self.connection sendPacket:message toHost:ip port:port];
     NSLog(@"Button is being Pressed!");
+    
 }
 //button pressed action-----------------------
-- (IBAction)buttonPressed:(UIButton*)button {
+- (IBAction)buttonReleased:(UIButton*)button {
     
     //goes to a the Connection Setup Page
     if(button.property==NULL){
-//        ConnectViewController *connectView = [[ConnectViewController alloc] init];
-//        [self.navigationController pushViewController:connectView animated:NO];
+
         NSLog(@"Button Pressed!");
         
     }
@@ -183,15 +220,19 @@ static char UIB_PROPERTY_KEY;
    NSLog(@"Button Pressed!");
     [self createButton: @"button1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0];
     [self createSlider:@"Testslider" xposition:10 yposition:450 height:300 width:20];
-    //NSString *id = [button property];
-    
+ 
     NSLog(@"button ID is:%@", button.property);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    ip=[defaults objectForKey:@"ip"];
+    NSNumber *tempPort=[defaults objectForKey:@"port"];
+    port = [tempPort longValue];
+  
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = @"/button";
-    [message addString:@"test0000088888"];
-    [self.connection sendPacket:message toHost:@"206.87.157.28" port:12000];
-    
-
+    [message addString:button.property];
+    [message addInt:0];
+    [self.connection sendPacket:message toHost:ip port:port];
+    NSLog(@"ip:%@ port:%ld", ip, port);
 
 }
 
@@ -201,30 +242,36 @@ static char UIB_PROPERTY_KEY;
     
     NSLog(@"val: %f",slider.value);
     NSLog(@"slider ID is:%@", slider.property);
+    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
+    message.address = @"/slider";
+    [message addString:@"testslider"];
+    [message addFloat:slider.value];
+
+    [self.connection sendPacket:message toHost:ip port:port];
    
 }
 
 //------------------Create Controls functions---------------------------------
 
-- (void) createButton:(NSString*) bnumber xposition:(float) x yposition:(float) y
+- (void) createButton:(NSString*) bname xposition:(float) x yposition:(float) y
                 height:(float) height width:(float)width {
   
    UIButton *button =
     [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[UIImage imageNamed:@"blackButton.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
 
     button.frame = CGRectMake(x, y, height, width);
     [button addTarget:self
-               action:@selector(buttonPressed:)
+               action:@selector(buttonReleased:)
      forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self
-               action:@selector(buttontest:)
+               action:@selector(buttonPressing:)
      forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Button" forState:UIControlStateNormal];
+    [button setTitle:bname forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //[button setBackgroundColor:[UIColor blueColor]];
     [self.view addSubview:button];
-    button.property=bnumber;
+    button.property=bname;
     //button.tag=bnumber;
     
     //NSLog(@"button id is: %d", button.tag);
@@ -245,9 +292,48 @@ static char UIB_PROPERTY_KEY;
     slider.property=stitle;
     [self.view addSubview:slider];
 }
+
+//ConnectViewController *connectView = [[ConnectViewController alloc] init];
 -(void)gotoConnection{
     ConnectViewController *connectView = [[ConnectViewController alloc] init];
     [self.navigationController pushViewController:connectView animated:NO];
+}
+
+- (void)oscConnection:(OSCConnection *)con didReceivePacket:(OSCPacket *)packet fromHost:(NSString *)host port:(UInt16)port
+{
+    NSLog(@"Received Data:%@", [packet.arguments description]);
+    NSLog(@"From:%@", packet.address);
+   // ((UITextField *)[window viewWithTag:kTagReceivedValue]).text = [packet.arguments description];
+    //((UITextField *)[window viewWithTag:kTagLocalAddress]).text = packet.address;
+}
+
+
+#define DEBTS_LIST_KEY @"listOfAllDebts"
+#define DEBTOR_NAME_KEY @"debtorName"
+#define DEBT_AMOUNT_KEY @"amountOfDebt"
+
+-(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName
+{
+    // pointer to standart user defaults
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    // the mutalbe array of all debts
+    NSMutableArray * alldebtRecords = [[defaults objectForKey:DEBTS_LIST_KEY] mutableCopy];
+    // create new record
+    // to save CGFloat you need to wrap it into NSNumber
+    NSNumber * amount = [NSNumber numberWithFloat:debtAmount];
+    
+    NSDictionary * newRecord = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:amount,ControlName, nil] forKeys:[NSArray arrayWithObjects:DEBT_AMOUNT_KEY, DEBTOR_NAME_KEY, nil]];
+    [alldebtRecords addObject:newRecord];
+    [defaults setObject:alldebtRecords forKey:DEBTS_LIST_KEY];
+    // do not forget to save changes
+    [defaults synchronize];
+}
+-(void)getControls{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray * test=[[defaults objectForKey:DEBTS_LIST_KEY] mutableCopy];
+    NSLog(@"array: %@", test);
+    
+
 }
 
 

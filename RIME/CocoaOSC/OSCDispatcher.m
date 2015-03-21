@@ -252,7 +252,7 @@ static NSString* globToRegex(NSString *glob);
     if (![pattern hasPrefix:@"/"]) return nil;
     
     NSString *regexPattern = globToRegex(pattern);
-    if (![regexPattern isRegexValid]) return nil;
+    //if (![regexPattern isRegexValid]) return nil;
     
     NSArray *components = [regexPattern componentsSeparatedByString:@"/"];
     return [components subarrayWithRange:NSMakeRange(1, [components count]-1)];

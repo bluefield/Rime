@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4BBF7308-2505-40CB-9A55-CA35174F9831</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RIME</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>657CCEA9FBC9072B9F05190046D9231C3089ACDC</key>
+		<string>https://github.com/bluefield/Rime.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RIME.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>657CCEA9FBC9072B9F05190046D9231C3089ACDC</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bluefield/Rime.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>657CCEA9FBC9072B9F05190046D9231C3089ACDC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>657CCEA9FBC9072B9F05190046D9231C3089ACDC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RIME</string>
+		</dict>
+	</array>
+</dict>
+</plist>

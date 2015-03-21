@@ -8,9 +8,18 @@
 #import "AppDelegate.h"
 #import <UIKit/UIKit.h>
 #import "OSCConnectionDelegate.h"
-//#import "ConnectivityInfo.h"
+#import "ConnectViewController.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate>
+//#import "ConnectivityInfo.h"
+@class OSCConnection;
+
+@interface ViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate>{
+    NSString *ip;
+    long port;
+    //ConnectViewController *appDel;
+}
+
+
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, retain) IBOutlet UIView *mrView;
@@ -19,14 +28,18 @@
 @property OSCConnection *connection;
 
 
--(IBAction)buttonPressed:(id)sender;
--(IBAction)buttontest:(id)sender;
+
+-(IBAction)buttonReleased:(id)sender;
+-(IBAction)buttonPressing:(id)sender;
 
 - (IBAction)sliderAction:(UISlider *)slider;
 - (void) createButton:(NSString *) bnumber xposition:(float) x yposition:(float) y
                 height:(float) height width:(float)width;
 -(void) createSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width;
 -(void)gotoConnection;
+-(void)getControls;
+-(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName;
+
 @end
 
 
@@ -41,3 +54,11 @@
 @property (nonatomic, retain) NSString *property;
 
 @end
+
+//@interface ConnectViewController : UIViewController <UINavigationControllerDelegate> {
+//    //UIButton *UIButton *gotoAnotherView;;
+//    //AnotherViewController *anotherView;
+//    ConnectViewController *connectView;
+//   
+//}
+

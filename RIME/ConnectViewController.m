@@ -30,21 +30,25 @@
 @end
 
 @implementation ConnectViewController
+//@synthesize delegate;
+@synthesize ip;
+@synthesize port;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Connection Set Up";
- 
+    
 
     NSError *error = nil;
     //---------------bind to UDPserver------------
-    self.connection = [[OSCConnection alloc] init];
-    self.connection.delegate = self;
-    //[self.connection bindToAddress:@"206.87.154.16" port:12000 error:&error];
-    
-    if (![self.connection bindToAddress:nil port:12000 error:&error])
-    {
-        NSLog(@"Could not bind UDP connection: %@", error);
-    }
+//    self.connection = [[OSCConnection alloc] init];
+//    self.connection.delegate = self;
+//    //[self.connection bindToAddress:@"206.87.154.16" port:12000 error:&error];
+//    
+//    if (![self.connection bindToAddress:nil port:12000 error:&error])
+//    {
+//        NSLog(@"Could not bind UDP connection: %@", error);
+//    }
 
     //------------------------------------------------
     
@@ -79,9 +83,10 @@
     [toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, barButtonItem, nil]];
     
     // Set the toolbar as accessory view of an UITextField object
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     
-    
+    ip=[defaults objectForKey:@"ip"];
     iptextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 100, 200, 30)];
     iptextField.borderStyle = UITextBorderStyleRoundedRect;
     iptextField.font = [UIFont systemFontOfSize:15];
@@ -90,8 +95,13 @@
     iptextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     iptextField.delegate = self;
     iptextField.inputAccessoryView = toolbar;
+    if ([iptextField.text length] > 0 || iptextField.text != nil || [iptextField.text isEqual:@""] == FALSE)
+    {
+        iptextField.text=[iptextField.text stringByAppendingString:ip];
+    }
+   
     
-    
+    port=[defaults objectForKey:@"port"];
     porttextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 130, 200, 30)];
     porttextField.borderStyle = UITextBorderStyleRoundedRect;
     porttextField.font = [UIFont systemFontOfSize:15];
@@ -100,14 +110,24 @@
     porttextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     porttextField.delegate = self;
     porttextField.inputAccessoryView = toolbar;
+    if ([porttextField.text length] > 0 || porttextField.text != nil || [porttextField.text isEqual:@""] == FALSE)
+    {
+        NSString *myString = [port stringValue];
+        porttextField.text=[porttextField.text stringByAppendingString:myString];
+    }
     
     
+    ID=[defaults objectForKey:@"ID"];
     idtextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 160, 200, 30)];
     idtextField.borderStyle = UITextBorderStyleRoundedRect;
     idtextField.font = [UIFont systemFontOfSize:15];
     idtextField.placeholder = @"enter DEVICE ID";
     idtextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     idtextField.delegate = self;
+    if ([idtextField.text length] > 0 || idtextField.text != nil || [idtextField.text isEqual:@""] == FALSE)
+    {
+        idtextField.text=[idtextField.text stringByAppendingString:ID];
+    }
     
     
     UIButton *connectbutton =
@@ -212,17 +232,39 @@
    
      NSLog(@"ConnectButton Pressed!");
     ip= iptextField.text;
-    port= [porttextField.text integerValue];
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+    port = [f numberFromString:porttextField.text];
+    //port= porttextField.text;
     ID =idtextField.text;
 
     
-    //[AppDelegate timer];
+    
     timer = [NSTimer scheduledTimerWithTimeInterval:0.2f
                                              target:self
                                            selector:@selector(updateMotionData:)
                                            userInfo:nil
                                             repeats:YES];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:ip forKey:@"ip"];
+    [defaults setObject:ID forKey:@"ID"];
+    [defaults setObject:port forKey:@"port"];
+    
+    //iptextField.text=[iptextField.text stringByAppendingString:ip];
+    
+    self.connection = [[OSCConnection alloc] init];
+    self.connection.delegate = self;
+    //[self.connection bindToAddress:@"206.87.154.16" port:12000 error:&error];
+    NSError *error = nil;
+    long tempPort = [port longValue];
+    if (![self.connection bindToAddress:nil port:tempPort error:&error])
+    {
+        NSLog(@"Could not bind UDP connection: %@", error);
+    }
 
+    
+    //[delegate ConnectViewControllerDidFinish:self];
 
     
 }
@@ -239,37 +281,49 @@
 //retrieve sensor data and sends them in OSC formatt
 - (void)updateMotionData:(NSTimer *)timer {
     
-    NSLog(@"Accel: x = %f, y = %f, z = %f.", motionManager.accelerometerData.acceleration.x, motionManager.accelerometerData.acceleration.y, motionManager.accelerometerData.acceleration.z);
+    NSLog(@"Sensors: x = %f, y = %f, z = %f.", motionManager.accelerometerData.acceleration.x, motionManager.accelerometerData.acceleration.y, motionManager.accelerometerData.acceleration.z);
     
     
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = @"/Accel:";
     [message addFloat:motionManager.accelerometerData.acceleration.x];
     [message addFloat:motionManager.accelerometerData.acceleration.y];
+    [message addFloat:motionManager.accelerometerData.acceleration.z];
     
     
     
     float x=motionManager.deviceMotion.userAcceleration.x;
     float y=motionManager.deviceMotion.userAcceleration.y;
     float z=motionManager.deviceMotion.userAcceleration.z;
+    [message addFloat:x];
+    [message addFloat:y];
+    [message addFloat:z];
     NSLog(@"User Accel: x = %f, y = %f, z = %f.", x, y, z);
     
     //------orientation-----------------------
     
     float roll=motionManager.deviceMotion.attitude.roll;
-    [message addFloat:roll];
     float pitch=motionManager.deviceMotion.attitude.pitch;
     float yaw=motionManager.deviceMotion.attitude.yaw;
+    [message addFloat:roll];
+    [message addFloat:pitch];
+    [message addFloat:yaw];
     NSLog(@"Orientation: x = %f, y = %f, z = %f.", roll, pitch, yaw);
     //---------Gyroscope----------------------------
     float gyroX=motionManager.gyroData.rotationRate.x;
     float gyroY=motionManager.gyroData.rotationRate.y;
     float gyroZ=motionManager.gyroData.rotationRate.z;
+    [message addFloat:gyroX];
+    [message addFloat:gyroY];
+    [message addFloat:gyroZ];
     NSLog(@"Gyro: x = %f, y = %f, z = %f.", gyroX, gyroY, gyroZ);
     //----------Gravity--------------------------------
     float gravityX=motionManager.deviceMotion.gravity.x;
     float gravityY=motionManager.deviceMotion.gravity.y;
     float gravityZ=motionManager.deviceMotion.gravity.z;
+    [message addFloat:gravityX];
+    [message addFloat:gravityY];
+    [message addFloat:gravityZ];
     NSLog(@"Gravity: x = %f, y = %f, z = %f.", gravityX, gravityY, gravityZ);
     
     //------------rotationRate---------------------------
@@ -277,16 +331,20 @@
     float rotationRateX=motionManager.deviceMotion.rotationRate.x;
     float rotationRateY=motionManager.deviceMotion.rotationRate.y;
     float rotationRateZ=motionManager.deviceMotion.rotationRate.z;
+    [message addFloat:rotationRateX];
+    [message addFloat:rotationRateY];
+    [message addFloat:rotationRateZ];
     NSLog(@"RotationRate: x = %f, y = %f, z = %f.", rotationRateX, rotationRateY, rotationRateZ);
     
     //--------------audioMeter------------------------------
     
     float averagedBLevel = [audioRecorder averagePowerForChannel:0];
     float peakdBLevel = [audioRecorder peakPowerForChannel:0];
-    NSLog(@"dBLevel: x = %f, y = %f", averagedBLevel, peakdBLevel);
+    //NSLog(@"dBLevel: x = %f, y = %f", averagedBLevel, peakdBLevel);
     
-    
-    [self.connection sendPacket:message toHost:ip port:port];//send final sensor data message here
+    long tempPort = [port longValue];
+
+    [self.connection sendPacket:message toHost:ip port:tempPort];//send final sensor data message here
     
 }
 //function make numkeyboard dissapear when "DONE" is pressed
