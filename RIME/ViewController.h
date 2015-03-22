@@ -33,12 +33,15 @@
 
 -(IBAction)buttonReleased:(id)sender;
 -(IBAction)buttonPressing:(id)sender;
+- (IBAction)TbuttonReleased:(UIButton*)button withEvent:(UIEvent *)event;
 
 - (IBAction)sliderAction:(UISlider *)slider;
 - (void) createButton:(NSString *) bnumber xposition:(float) x yposition:(float) y
-                height:(float) height width:(float)width;
--(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from;
--(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from;
+                height:(float) height width:(float)width addressPat: (NSString *) addressPat;
+- (void) createTButton:(NSString*) bname xposition:(float) x yposition:(float) y
+                height:(float) height width:(float)width addressPat: (NSString *) addressPat;
+-(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
+-(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
 -(void)gotoConnection;
 -(void)getControls;
 -(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName;
@@ -47,6 +50,7 @@
 -(void)writeJSON;
 -(void)readtest;
 -(void)resetView;
+-(void)portBind;
 
 @end
 

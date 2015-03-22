@@ -103,8 +103,9 @@ static char UIB_PROPERTY_KEY;
 - (void)viewDidLoad {
     [super viewDidLoad];
    // NSError *error = nil;
-    [self saveControls:200 forName:@"David"];
-    [self getControls];
+    [self portBind];
+    //[self saveControls:200 forName:@"David"];
+    //[self getControls];
     
     
     
@@ -182,6 +183,7 @@ static char UIB_PROPERTY_KEY;
      forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"button0" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button.property=@"/pushButton";
     //[button setBackgroundColor:[UIColor blueColor]];
 
     
@@ -225,7 +227,8 @@ static char UIB_PROPERTY_KEY;
         [self.view addSubview:slider];
         [self.view addSubview:button];
     
-   [self createButton: @"button2" xposition:0.0 yposition:(300.0) height:(40.0) width:100.0];
+   //[self createButton: @"button2" xposition:0.0 yposition:(300.0) height:(40.0) width:100.0];
+    [self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
     //----------------------------------------------------------------------------------
     
 }
@@ -276,6 +279,29 @@ static char UIB_PROPERTY_KEY;
     NSLog(@"ip:%@ port:%ld", ip, port);
 
 }
+- (IBAction)TbuttonReleased:(UIButton*)button withEvent:(UIEvent *)event {
+    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
+    message.address = button.property;
+    //[message addString:button.property];
+    
+    
+    if(button.selected==YES){
+        [message addInt:0];
+        NSLog(@"0");
+    }
+    else{
+        [message addInt:1];
+         NSLog(@"1");
+    }
+    [self.connection sendPacket:message toHost:ip port:port];
+    
+    button.selected = !button.selected;
+    //NSLog(@"test");
+   //[button setBackgroundImage:[UIImage imageNamed:@"orangeButton.png"] forState:UIControlStateNormal];
+
+    
+    
+}
 
 //slider action---------------------------
 
@@ -320,8 +346,40 @@ static char UIB_PROPERTY_KEY;
 
 //------------------Create Controls functions---------------------------------
 
+- (void) createTButton:(NSString*) bname xposition:(float) x yposition:(float) y
+               height:(float) height width:(float)width addressPat: (NSString *) addressPat{
+    
+    UIButton *button =
+    [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"greyButton.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"blackButton.png"] forState:UIControlStateSelected];
+    //[button setBackgroundImage:[UIImage imageNamed:@"orangeButton.png"] forState:UIControlStateSelected | UIControlStateHighlighted];
+
+    button.frame = CGRectMake(x, y, width, height);
+    [button addTarget:self
+               action:@selector(TbuttonReleased:withEvent:)
+     forControlEvents:UIControlEventTouchUpInside];
+//    [button addTarget:self
+//               action:@selector(buttonPressing:)
+//     forControlEvents:UIControlEventTouchDown];
+    [button setTitle:bname forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //[button setBackgroundColor:[UIColor blueColor]];
+    [self.view addSubview:button];
+    button.property=addressPat;
+    //button.tag=bnumber;
+    
+    //NSLog(@"button id is: %d", button.tag);
+    
+    
+}
+
+
+
+
 - (void) createButton:(NSString*) bname xposition:(float) x yposition:(float) y
-                height:(float) height width:(float)width {
+                height:(float) height width:(float)width addressPat: (NSString *) addressPat {
   
    UIButton *button =
     [UIButton buttonWithType:UIButtonTypeCustom];
@@ -338,7 +396,7 @@ static char UIB_PROPERTY_KEY;
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //[button setBackgroundColor:[UIColor blueColor]];
     [self.view addSubview:button];
-    button.property=bname;
+    button.property=addressPat;
     //button.tag=bnumber;
     
     //NSLog(@"button id is: %d", button.tag);
@@ -346,7 +404,7 @@ static char UIB_PROPERTY_KEY;
 
 }
 
--(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from{
+-(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat{
     
     CGRect frame = CGRectMake(x, y, height, width);
     UISlider *slider = [[UISlider alloc] initWithFrame:frame];
@@ -356,12 +414,12 @@ static char UIB_PROPERTY_KEY;
     slider.maximumValue = to;
     slider.continuous = YES;
     slider.value = to/2;
-    slider.property=stitle;
+    slider.property=addressPat;
     CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 0.5);
     slider.transform = trans;
     [self.view addSubview:slider];
 }
--(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from{
+-(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat{
     
     CGRect frame = CGRectMake(x, y, width, height);
     UISlider *slider = [[UISlider alloc] initWithFrame:frame];
@@ -371,14 +429,14 @@ static char UIB_PROPERTY_KEY;
     slider.maximumValue = to;
     slider.continuous = YES;
     slider.value = to/2;
-    slider.property=stitle;
+    slider.property=addressPat;
    
     [self.view addSubview:slider];
 }
--(void) createSwitch:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
+-(void) createSwitch:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width addressPat: (NSString *) addressPat{
         UISwitch *Switch = [[UISwitch alloc] initWithFrame:CGRectMake(x, y, width, height)];
         [Switch addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
-        Switch.property=stitle;
+        Switch.property=addressPat;
         [self.view addSubview:Switch];
 
 
@@ -398,7 +456,7 @@ static char UIB_PROPERTY_KEY;
     NSLog(@"From:%@", packet.address);
     if([packet.address  isEqual:@"/sync"]){
         [self resetView];
-        NSLog(@"detected");
+        //NSLog(@"detected");
         NSString *receivedJSON=[packet.arguments objectAtIndex:0];
         NSLog(@"detected:%@", receivedJSON);
         [self readJSON:receivedJSON];
@@ -459,30 +517,35 @@ static char UIB_PROPERTY_KEY;
             NSInteger toVArr = [[item objectForKey: @"toValue"] integerValue];
             NSInteger xArr = [[item objectForKey: @"x"] integerValue];
             NSInteger yArr = [[item objectForKey: @"y"] integerValue];
-
+            NSString *titleArr=(NSString *) [item objectForKey:@"title"];
             NSInteger heightArr = [[item objectForKey: @"height"] integerValue];
+            
             if([typeArr isEqual:@"Push Button"]){
                 //temp=xArr;
                 //NSInteger xValue = [[temp objectAtIndex:0] integerValue];
-                [self createButton: addressPatArr xposition:xArr yposition:yArr+70 height:heightArr width:widthArr];
+                [self createButton: titleArr xposition:xArr yposition:yArr+70 height:heightArr width:widthArr addressPat:addressPatArr];
                 NSLog(@"hurray: %ld", (long)fromVArr);
             }
             else if([typeArr isEqual:@"Toggle"]){
-                [self createSwitch:addressPatArr xposition:(int)xArr yposition: (int)yArr+70 height:(int)heightArr width:(int)widthArr];
+                
+                [self createTButton: titleArr xposition:xArr yposition:yArr+70 height:heightArr width:widthArr addressPat:addressPatArr];
+                
+                //[self createSwitch:addressPatArr xposition:(int)xArr yposition: (int)yArr+70 height:(int)heightArr width:(int)widthArr];
 
             }
             else if([typeArr isEqual:@"SliderH"]){
-                [self createHSlider:addressPatArr xposition:(int)xArr yposition:(int)yArr+70 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr];
+                [self createHSlider:titleArr xposition:(int)xArr yposition:(int)yArr+70 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
                 
             }
             else if([typeArr isEqual:@"SliderV"]){
-                [self createVSlider:addressPatArr xposition:(int)xArr-50 yposition:(int)yArr+110 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr];
+                [self createVSlider:titleArr xposition:(int)xArr-50 yposition:(int)yArr+110 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
                 
             }
             else{
                 NSLog(@"No Compatible Command Found");
             }
             NSLog(@"addressPattern: %@", addressPatArr);
+            NSLog(@"title: %@", titleArr);
             NSLog(@"width: %ld", (long)widthArr);
             NSLog(@"type: %@", typeArr);
             NSLog(@"from: %ld", (long)fromVArr);
@@ -511,8 +574,22 @@ static char UIB_PROPERTY_KEY;
     
     //[self readJSON];
     
-    [self writeJSON];
-    [self readtest];
+    //[self writeJSON];
+    //[self readtest];
+
+}
+-(void)portBind{
+    NSError *error = nil;
+    self.connection = [[OSCConnection alloc] init];
+    self.connection.delegate = self;
+    self.connection.continuouslyReceivePackets = YES;
+    
+    
+    if (![self.connection bindToAddress:nil port:11000 error:&error])
+    {
+        NSLog(@"Could not bind UDP connection: %@", error);
+    }
+    [self.connection receivePacket];
 
 
 }
