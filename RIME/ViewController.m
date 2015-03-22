@@ -85,27 +85,14 @@ static char UIB_PROPERTY_KEY;
 
 @implementation ViewController
 
-//- (void)ConnectViewControllerDidFinish:(ConnectViewController*)connectViewController
-//{
-//    //NSArray* someArray = secondViewController.someArray
-//    // Do something with the array
-//    //ip= connectViewController.ip;
-//    ip=appDel.ip;
-//    
-//    long tempPort =[appDel.port longValue];
-//    //[connectViewController.port longValue];
-//    port=tempPort;
-//    NSLog(@"back to main page and ip:%@ port:%ld", ip, port);
-//    
-//}
     ConnectViewController *appDel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
    // NSError *error = nil;
     [self portBind];
-    //[self saveControls:200 forName:@"David"];
-    //[self getControls];
+    [self loadUI];
+  
     
     
     
@@ -135,86 +122,54 @@ static char UIB_PROPERTY_KEY;
     UIBarButtonItem *leng_btn = [[UIBarButtonItem alloc] initWithCustomView:lbtn];
     self.navigationItem.leftBarButtonItem = leng_btn;
 
-    
-    
-    
-    
-//    UIBarButtonItem *cButton = [[UIBarButtonItem alloc]
-//                                   initWithTitle:@"Connect"
-//                                   style:UIBarButtonItemStylePlain
-//                                   target:self
-//                                   action:@selector(gotoConnection)];
-//
-//    [cButton setImage:[UIImage imageNamed:@"blueButton.png"] ];
-   
 
-    //self.navigationItem.rightBarButtonItem = cButton;
-
-   
-    //UDP Connection Set Up-------------------
-//    self.connection = [[OSCConnection alloc] init];
-//    self.connection.delegate = self;
-//   self.connection.continuouslyReceivePackets = YES;
-//    
-//    
-//    if (![self.connection bindToAddress:nil port:11000 error:&error])
-//    {
-//        NSLog(@"Could not bind UDP connection: %@", error);
-//    }
-//    [self.connection receivePacket];
-//    
-//    [self readJSON];
-
-    
     
 //------------------------test view setup---------------
-    self.textField = [[UITextField alloc]
-                      initWithFrame:CGRectMake(10.0f, 30.0f,300.0f, 30.0f)];
-    [self.view addSubview:self.textField];
+   
     //button function
-    UIButton *button =
-    [UIButton buttonWithType:UIButtonTypeCustom];
-     button.frame = CGRectMake(110.0f, 200.0f, 100.0f, 40.0f);
-     [button setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
-    
-    button.property=@"button0";
-    [button addTarget:self
-               action:@selector(buttonReleased:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"button0" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button.property=@"/pushButton";
+//    UIButton *button =
+//    [UIButton buttonWithType:UIButtonTypeCustom];
+//     button.frame = CGRectMake(110.0f, 200.0f, 100.0f, 40.0f);
+//     [button setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
+//    
+//    button.property=@"button0";
+//    [button addTarget:self
+//               action:@selector(buttonReleased:)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [button setTitle:@"button0" forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    button.property=@"/pushButton";
     //[button setBackgroundColor:[UIColor blueColor]];
 
     
     //label function
-    self.label = [[UILabel alloc]
-                  initWithFrame:CGRectMake(115.0f, 150.0f, 200.0f, 30.0f)];
-    self.label.text = @"Hello World!";
-        [self.view addSubview:self.label];
+//    self.label = [[UILabel alloc]
+//                  initWithFrame:CGRectMake(115.0f, 150.0f, 200.0f, 30.0f)];
+//    self.label.text = @"Hello World!";
+//        [self.view addSubview:self.label];
    //self.navigationItem.title= @"ViewController";
    
     //slider function
   
-        CGRect frame = CGRectMake(10, 240, 100.0, 50.0);
-        UISlider *slider = [[UISlider alloc] initWithFrame:frame];
-        [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
-        [slider setBackgroundColor:[UIColor clearColor]];
-        slider.minimumValue = 0.0;
-        slider.maximumValue = 50.0;
-        slider.continuous = YES;
-        slider.value = 25.0;
-    
+//        CGRect frame = CGRectMake(10, 240, 100.0, 50.0);
+//        UISlider *slider = [[UISlider alloc] initWithFrame:frame];
+//        [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+//        [slider setBackgroundColor:[UIColor clearColor]];
+//        slider.minimumValue = 0.0;
+//        slider.maximumValue = 50.0;
+//        slider.continuous = YES;
+//        slider.value = 25.0;
+//    
     //text field
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 70, 300, 40)];
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.font = [UIFont systemFontOfSize:15];
-    textField.placeholder = @"enter text";
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.keyboardType = UIKeyboardTypeDefault;
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 70, 300, 40)];
+//    textField.borderStyle = UITextBorderStyleRoundedRect;
+//    textField.font = [UIFont systemFontOfSize:15];
+//    textField.placeholder = @"enter text";
+//    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+//    textField.keyboardType = UIKeyboardTypeDefault;
+//    textField.returnKeyType = UIReturnKeyDone;
+//    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     //textField.delegate = self;
     
 //    UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(10, 110, 0, 0)];
@@ -224,11 +179,11 @@ static char UIB_PROPERTY_KEY;
     //[self.view addSubview:textField];
     
     
-        [self.view addSubview:slider];
-        [self.view addSubview:button];
+        //[self.view addSubview:slider];
+        //[self.view addSubview:button];
     
    //[self createButton: @"button2" xposition:0.0 yposition:(300.0) height:(40.0) width:100.0];
-    [self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
+    //[self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
     //----------------------------------------------------------------------------------
     
 }
@@ -296,10 +251,6 @@ static char UIB_PROPERTY_KEY;
     [self.connection sendPacket:message toHost:ip port:port];
     
     button.selected = !button.selected;
-    //NSLog(@"test");
-   //[button setBackgroundImage:[UIImage imageNamed:@"orangeButton.png"] forState:UIControlStateNormal];
-
-    
     
 }
 
@@ -354,23 +305,20 @@ static char UIB_PROPERTY_KEY;
     
     [button setBackgroundImage:[UIImage imageNamed:@"greyButton.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"blackButton.png"] forState:UIControlStateSelected];
-    //[button setBackgroundImage:[UIImage imageNamed:@"orangeButton.png"] forState:UIControlStateSelected | UIControlStateHighlighted];
-
+    
     button.frame = CGRectMake(x, y, width, height);
     [button addTarget:self
                action:@selector(TbuttonReleased:withEvent:)
      forControlEvents:UIControlEventTouchUpInside];
-//    [button addTarget:self
-//               action:@selector(buttonPressing:)
-//     forControlEvents:UIControlEventTouchDown];
+
     [button setTitle:bname forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //[button setBackgroundColor:[UIColor blueColor]];
+    
     [self.view addSubview:button];
     button.property=addressPat;
-    //button.tag=bnumber;
     
-    //NSLog(@"button id is: %d", button.tag);
+    
+    //NSLog(@"button id is: %d", button.property);
     
     
 }
@@ -394,12 +342,12 @@ static char UIB_PROPERTY_KEY;
      forControlEvents:UIControlEventTouchDown];
     [button setTitle:bname forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //[button setBackgroundColor:[UIColor blueColor]];
+   
     [self.view addSubview:button];
     button.property=addressPat;
-    //button.tag=bnumber;
+
     
-    //NSLog(@"button id is: %d", button.tag);
+    //NSLog(@"button id is: %d", button.property);
     
 
 }
@@ -442,7 +390,7 @@ static char UIB_PROPERTY_KEY;
 
 }
 
-//ConnectViewController *connectView = [[ConnectViewController alloc] init];
+
 -(void)gotoConnection{
     ConnectViewController *connectView = [[ConnectViewController alloc] init];
     [self.navigationController pushViewController:connectView animated:NO];
@@ -453,16 +401,19 @@ static char UIB_PROPERTY_KEY;
     
     NSLog(@"Received Data:%@", [packet.arguments description]);
     NSLog(@"address Pattern: %@", packet.address);
-    NSLog(@"From:%@", packet.address);
+    //NSLog(@"From:%@", packet.address);
     if([packet.address  isEqual:@"/sync"]){
         [self resetView];
         //NSLog(@"detected");
         NSString *receivedJSON=[packet.arguments objectAtIndex:0];
         NSLog(@"detected:%@", receivedJSON);
         [self readJSON:receivedJSON];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        [defaults setObject:receivedJSON forKey:@"JSON"];
+
     }
-   // ((UITextField *)[window viewWithTag:kTagReceivedValue]).text = [packet.arguments description];
-    //((UITextField *)[window viewWithTag:kTagLocalAddress]).text = packet.address;
+  
 }
 
 
@@ -470,28 +421,7 @@ static char UIB_PROPERTY_KEY;
 #define DEBTOR_NAME_KEY @"debtorName"
 #define DEBT_AMOUNT_KEY @"amountOfDebt"
 
--(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName
-{
-    // pointer to standart user defaults
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    // the mutalbe array of all debts
-    NSMutableArray * alldebtRecords = [[defaults objectForKey:DEBTS_LIST_KEY] mutableCopy];
-    // create new record
-    // to save CGFloat you need to wrap it into NSNumber
-    NSNumber * amount = [NSNumber numberWithFloat:debtAmount];
-    
-    NSDictionary * newRecord = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:amount,ControlName, nil] forKeys:[NSArray arrayWithObjects:DEBT_AMOUNT_KEY, DEBTOR_NAME_KEY, nil]];
-    [alldebtRecords addObject:newRecord];
-    [defaults setObject:alldebtRecords forKey:DEBTS_LIST_KEY];
-    // do not forget to save changes
-    [defaults synchronize];
-}
--(void)getControls{
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray * test=[[defaults objectForKey:DEBTS_LIST_KEY] mutableCopy];
-    NSLog(@"array: %@", test);
 
-}
 -(void)readJSON:(NSString *) jsonString{
     
     NSError *error=nil;
@@ -560,18 +490,32 @@ static char UIB_PROPERTY_KEY;
 }
 -(void)loadUI{
     
-    NSError *error = nil;
-    self.connection = [[OSCConnection alloc] init];
-    self.connection.delegate = self;
-    self.connection.continuouslyReceivePackets = YES;
+//    NSError *error = nil;
+//    self.connection = [[OSCConnection alloc] init];
+//    self.connection.delegate = self;
+//    self.connection.continuouslyReceivePackets = YES;
+//    
+//    
+//    if (![self.connection bindToAddress:nil port:11000 error:&error])
+//    {
+//        NSLog(@"Could not bind UDP connection: %@", error);
+//    }
+//    [self.connection receivePacket];
+    [self resetView];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if (![self.connection bindToAddress:nil port:11000 error:&error])
-    {
-        NSLog(@"Could not bind UDP connection: %@", error);
+    NSObject* object=[defaults objectForKey:@"JSON"];
+    NSString *temp;
+    if(object==nil){
+        
+        NSString* emptyJSON=@"[]";
+        [defaults setObject:emptyJSON forKey:@"JSON"];
     }
-    [self.connection receivePacket];
+        temp=[defaults objectForKey:@"JSON"];
+        [self readJSON:temp];
     
+
     //[self readJSON];
     
     //[self writeJSON];

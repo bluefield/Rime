@@ -43,8 +43,7 @@
 -(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
 -(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
 -(void)gotoConnection;
--(void)getControls;
--(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName;
+
 -(void)readJSON:(NSString *) jsonString;
 -(void)loadUI;
 -(void)writeJSON;

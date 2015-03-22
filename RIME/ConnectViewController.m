@@ -217,8 +217,9 @@
     audioRecorder.meteringEnabled = YES;
     
     audioSession = [AVAudioSession sharedInstance];
-    
-    [audioSession setCategory:AVAudioSessionCategoryRecord error: nil];
+    //[[AVAudioSession sharedInstance]
+    //setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    //[audioSession setCategory:AVAudioSessionCategoryRecord error: nil];
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: nil];
     [audioSession setActive:YES error: nil];
     [audioRecorder updateMeters];
@@ -354,7 +355,9 @@
     //NSLog(@"RotationRate: x = %f, y = %f, z = %f.", rotationRateX, rotationRateY, rotationRateZ);
     
     //--------------audioMeter------------------------------
-    
+    //uncomment below if need update
+    //[audioRecorder updateMeters];
+    //[audioRecorder record];
     float averagedBLevel = [audioRecorder averagePowerForChannel:0];
     float peakdBLevel = [audioRecorder peakPowerForChannel:0];
     //NSLog(@"dBLevel: x = %f, y = %f", averagedBLevel, peakdBLevel);
