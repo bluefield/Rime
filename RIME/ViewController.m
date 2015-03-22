@@ -238,8 +238,8 @@ static char UIB_PROPERTY_KEY;
 
 - (IBAction)buttonPressing:(UIButton*)button {
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-    message.address = @"/button";
-    [message addString:button.property];
+    message.address = button.property;
+    //[message addString:button.property];
     [message addInt:1];
     [self.connection sendPacket:message toHost:ip port:port];
     NSLog(@"Button is being Pressed!");
@@ -269,8 +269,8 @@ static char UIB_PROPERTY_KEY;
     port = [tempPort longValue];
   
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-    message.address = @"/button";
-    [message addString:button.property];
+    message.address = button.property;
+    //[message addString:button.property];
     [message addInt:0];
     [self.connection sendPacket:message toHost:ip port:port];
     NSLog(@"ip:%@ port:%ld", ip, port);
@@ -290,8 +290,8 @@ static char UIB_PROPERTY_KEY;
     
     
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-    message.address = @"/slider";
-    [message addString:@"testslider"];
+    message.address = slider.property;
+    //[message addString:@"testslider"];
     [message addFloat:slider.value];
 
     [self.connection sendPacket:message toHost:ip port:port];
@@ -302,16 +302,16 @@ static char UIB_PROPERTY_KEY;
     if([Switch isOn]){
         // Execute any code when the switch is ON
         OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-        message.address = @"/Toggle";
-        [message addString:Switch.property];
+        message.address = Switch.property;
+        //[message addString:Switch.property];
         [message addInt:1];
         [self.connection sendPacket:message toHost:ip port:port];
         NSLog(@"%@: Switch is ON", Switch.property);
     } else{
         // Execute any code when the switch is OFF
         OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-        message.address = @"/Toggle";
-        [message addString:Switch.property];
+        message.address = Switch.property;
+        //[message addString:Switch.property];
         [message addInt:0];
         [self.connection sendPacket:message toHost:ip port:port];
         NSLog(@"Switch is OFF");
@@ -346,31 +346,31 @@ static char UIB_PROPERTY_KEY;
 
 }
 
--(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
+-(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from{
     
     CGRect frame = CGRectMake(x, y, height, width);
     UISlider *slider = [[UISlider alloc] initWithFrame:frame];
     [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     [slider setBackgroundColor:[UIColor clearColor]];
-    slider.minimumValue = 0.0;
-    slider.maximumValue = 50.0;
+    slider.minimumValue = from;
+    slider.maximumValue = to;
     slider.continuous = YES;
-    slider.value = 25.0;
+    slider.value = to/2;
     slider.property=stitle;
     CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 0.5);
     slider.transform = trans;
     [self.view addSubview:slider];
 }
--(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width{
+-(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from{
     
     CGRect frame = CGRectMake(x, y, width, height);
     UISlider *slider = [[UISlider alloc] initWithFrame:frame];
     [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     [slider setBackgroundColor:[UIColor clearColor]];
-    slider.minimumValue = 0.0;
-    slider.maximumValue = 50.0;
+    slider.minimumValue = from;
+    slider.maximumValue = to;
     slider.continuous = YES;
-    slider.value = 25.0;
+    slider.value = to/2;
     slider.property=stitle;
    
     [self.view addSubview:slider];
@@ -394,7 +394,15 @@ static char UIB_PROPERTY_KEY;
 {
     
     NSLog(@"Received Data:%@", [packet.arguments description]);
+    NSLog(@"address Pattern: %@", packet.address);
     NSLog(@"From:%@", packet.address);
+    if([packet.address  isEqual:@"/sync"]){
+        [self resetView];
+        NSLog(@"detected");
+        NSString *receivedJSON=[packet.arguments objectAtIndex:0];
+        NSLog(@"detected:%@", receivedJSON);
+        [self readJSON:receivedJSON];
+    }
    // ((UITextField *)[window viewWithTag:kTagReceivedValue]).text = [packet.arguments description];
     //((UITextField *)[window viewWithTag:kTagLocalAddress]).text = packet.address;
 }
@@ -426,12 +434,14 @@ static char UIB_PROPERTY_KEY;
     NSLog(@"array: %@", test);
 
 }
--(void)readJSON{
+-(void)readJSON:(NSString *) jsonString{
     
     NSError *error=nil;
-    NSString *str=[[NSBundle mainBundle] pathForResource:@"JSON" ofType:@"JSON"];
+    //NSString *str=[[NSBundle mainBundle] pathForResource:@"JSON" ofType:@"JSON"];
     
-    NSData *jsonData=[NSData dataWithContentsOfFile:str];
+    NSData *jsonData=[jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //[NSData dataWithContentsOfFile:str];
     //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.json-generator.com/api/json/get/bGHMXnmbAO?indent=2"]];
     //NSData *jsonData = [NSData dataWithContentsOfURL:url];
     
@@ -462,11 +472,11 @@ static char UIB_PROPERTY_KEY;
 
             }
             else if([typeArr isEqual:@"SliderH"]){
-                [self createHSlider:addressPatArr xposition:(int)xArr yposition:(int)yArr+70 height:(int)heightArr width:(int)widthArr];
+                [self createHSlider:addressPatArr xposition:(int)xArr yposition:(int)yArr+70 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr];
                 
             }
             else if([typeArr isEqual:@"SliderV"]){
-                [self createVSlider:addressPatArr xposition:(int)xArr-50 yposition:(int)yArr+110 height:(int)heightArr width:(int)widthArr];
+                [self createVSlider:addressPatArr xposition:(int)xArr-50 yposition:(int)yArr+110 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr];
                 
             }
             else{
@@ -499,7 +509,7 @@ static char UIB_PROPERTY_KEY;
     }
     [self.connection receivePacket];
     
-    [self readJSON];
+    //[self readJSON];
     
     [self writeJSON];
     [self readtest];
@@ -543,7 +553,12 @@ static char UIB_PROPERTY_KEY;
 
 
 }
-
+-(void)resetView{
+NSArray *viewsToRemove = [self.view subviews];
+for (UIView *v in viewsToRemove) {
+    [v removeFromSuperview];
+}
+}
 
 
 

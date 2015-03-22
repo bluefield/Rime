@@ -257,7 +257,7 @@
 
     
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.2f
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.06f
                                              target:self
                                            selector:@selector(updateMotionData:)
                                            userInfo:nil
@@ -298,11 +298,11 @@
 //retrieve sensor data and sends them in OSC formatt
 - (void)updateMotionData:(NSTimer *)timer {
     
-    NSLog(@"Sensors: x = %f, y = %f, z = %f.", motionManager.accelerometerData.acceleration.x, motionManager.accelerometerData.acceleration.y, motionManager.accelerometerData.acceleration.z);
+    //NSLog(@"Sensors: x = %f, y = %f, z = %f.", motionManager.accelerometerData.acceleration.x, motionManager.accelerometerData.acceleration.y, motionManager.accelerometerData.acceleration.z);
     
     
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-    message.address = @"/Accel:";
+    message.address = @"/sensors";
     [message addFloat:motionManager.accelerometerData.acceleration.x];
     [message addFloat:motionManager.accelerometerData.acceleration.y];
     [message addFloat:motionManager.accelerometerData.acceleration.z];
@@ -315,7 +315,7 @@
     [message addFloat:x];
     [message addFloat:y];
     [message addFloat:z];
-    NSLog(@"User Accel: x = %f, y = %f, z = %f.", x, y, z);
+    //NSLog(@"User Accel: x = %f, y = %f, z = %f.", x, y, z);
     
     //------orientation-----------------------
     
@@ -325,7 +325,7 @@
     [message addFloat:roll];
     [message addFloat:pitch];
     [message addFloat:yaw];
-    NSLog(@"Orientation: x = %f, y = %f, z = %f.", roll, pitch, yaw);
+    //NSLog(@"Orientation: x = %f, y = %f, z = %f.", roll, pitch, yaw);
     //---------Gyroscope----------------------------
     float gyroX=motionManager.gyroData.rotationRate.x;
     float gyroY=motionManager.gyroData.rotationRate.y;
@@ -333,7 +333,7 @@
     [message addFloat:gyroX];
     [message addFloat:gyroY];
     [message addFloat:gyroZ];
-    NSLog(@"Gyro: x = %f, y = %f, z = %f.", gyroX, gyroY, gyroZ);
+   // NSLog(@"Gyro: x = %f, y = %f, z = %f.", gyroX, gyroY, gyroZ);
     //----------Gravity--------------------------------
     float gravityX=motionManager.deviceMotion.gravity.x;
     float gravityY=motionManager.deviceMotion.gravity.y;
@@ -341,7 +341,7 @@
     [message addFloat:gravityX];
     [message addFloat:gravityY];
     [message addFloat:gravityZ];
-    NSLog(@"Gravity: x = %f, y = %f, z = %f.", gravityX, gravityY, gravityZ);
+    //NSLog(@"Gravity: x = %f, y = %f, z = %f.", gravityX, gravityY, gravityZ);
     
     //------------rotationRate---------------------------
     //gyroData.rotationRate.x;
@@ -351,7 +351,7 @@
     [message addFloat:rotationRateX];
     [message addFloat:rotationRateY];
     [message addFloat:rotationRateZ];
-    NSLog(@"RotationRate: x = %f, y = %f, z = %f.", rotationRateX, rotationRateY, rotationRateZ);
+    //NSLog(@"RotationRate: x = %f, y = %f, z = %f.", rotationRateX, rotationRateY, rotationRateZ);
     
     //--------------audioMeter------------------------------
     
