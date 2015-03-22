@@ -125,6 +125,7 @@ static id parseOSCObject(char typetag, const void *bytes, NSUInteger *ioIndex, N
         {
             NSLog(@"Unrecognized first byte for OSC message: %@", data);
             //[self release];
+            
             return nil;
         }
     }

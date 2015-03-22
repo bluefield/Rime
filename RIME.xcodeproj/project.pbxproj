@@ -22,6 +22,8 @@
 		6346D8541AB53A1500E1530E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8531AB53A1500E1530E /* CoreMotion.framework */; };
 		6346D8561AB53A3A00E1530E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8551AB53A3A00E1530E /* AudioToolbox.framework */; };
 		6346D8581AB53A4C00E1530E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8571AB53A4C00E1530E /* AVFoundation.framework */; };
+		635F19AA1ABE3CAB00FCF5AA /* JSON.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 635F19A91ABE3CAB00FCF5AA /* JSON.JSON */; };
+		635F19AC1ABE5B5800FCF5AA /* test.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 635F19AB1ABE5B5800FCF5AA /* test.JSON */; };
 		63A501941AAD5BEA009BD989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501931AAD5BEA009BD989 /* main.m */; };
 		63A501971AAD5BEA009BD989 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501961AAD5BEA009BD989 /* AppDelegate.m */; };
 		63A5019A1AAD5BEA009BD989 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501991AAD5BEA009BD989 /* ViewController.m */; };
@@ -76,6 +78,8 @@
 		6346D8531AB53A1500E1530E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		6346D8551AB53A3A00E1530E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6346D8571AB53A4C00E1530E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		635F19A91ABE3CAB00FCF5AA /* JSON.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSON.JSON; sourceTree = "<group>"; };
+		635F19AB1ABE5B5800FCF5AA /* test.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.JSON; sourceTree = "<group>"; };
 		63A5018E1AAD5BEA009BD989 /* RIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A501921AAD5BEA009BD989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A501931AAD5BEA009BD989 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 		63A501911AAD5BEA009BD989 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				635F19A91ABE3CAB00FCF5AA /* JSON.JSON */,
+				635F19AB1ABE5B5800FCF5AA /* test.JSON */,
 				63A501921AAD5BEA009BD989 /* Info.plist */,
 				63A501931AAD5BEA009BD989 /* main.m */,
 			);
@@ -325,8 +331,10 @@
 				6346D8351AB51B7900E1530E /* InfoPlist.strings in Resources */,
 				6346D8341AB51B7900E1530E /* CocoaOSC-Info.plist in Resources */,
 				63A5019D1AAD5BEA009BD989 /* Main.storyboard in Resources */,
+				635F19AC1ABE5B5800FCF5AA /* test.JSON in Resources */,
 				63A501A21AAD5BEA009BD989 /* LaunchScreen.xib in Resources */,
 				63A5019F1AAD5BEA009BD989 /* Images.xcassets in Resources */,
+				635F19AA1ABE3CAB00FCF5AA /* JSON.JSON in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

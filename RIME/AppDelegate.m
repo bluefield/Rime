@@ -52,28 +52,42 @@
     
 //-------------------translate JSON string----------------------------------------------
     
-    NSError *error=nil;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.json-generator.com/api/json/get/bGHMXnmbAO?indent=2"]];
-    NSData *jsonData = [NSData dataWithContentsOfURL:url];
-    
-    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    if (!JSON) {
-        NSLog(@"Error parsing JSON: %@", error);
-    } else {
-        for(NSDictionary *item in JSON) {
-            NSArray *fetchedArr = [item objectForKey:@"gender"];
-            NSArray *idArr = [item objectForKey:@"_id"];
-            NSArray *nameArr = [item objectForKey: @"name"];
-            NSArray *friendArr = [item objectForKey: @"friends"];
-
-            //gender= [item objectForKey:@"gender"];
-            //NSLog(@"Item: %@", item);
-//            NSLog(@"id: %@", idArr);
-//            NSLog(@"name: %@", nameArr);
-//            NSLog(@"gender: %@", fetchedArr);
-//            NSLog(@"friends: %@", friendArr);
-        }
-    }
+//    NSError *error=nil;
+// 
+// 
+//    NSString *str=[[NSBundle mainBundle] pathForResource:@"JSON" ofType:@"JSON"];
+//
+//    NSData *jsonData=[NSData dataWithContentsOfFile:str];
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.json-generator.com/api/json/get/bGHMXnmbAO?indent=2"]];
+    //NSData *jsonData = [NSData dataWithContentsOfURL:url];
+   
+    //NSData *jsonData=[NSKeyedUnarchiver unarchiveObjectWithData:jsonarray];
+//    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+//    if (!JSON) {
+//        NSLog(@"Error parsing JSON: %@", error);
+//    } else {
+//        for(NSDictionary *item in JSON) {
+//            NSArray *addressPatArr = [item objectForKey:@"addressPattern"];
+//            NSArray *widthArr = [item objectForKey:@"width"];
+//            NSArray *typeArr = [item objectForKey: @"type"];
+//            NSArray *fromVArr = [item objectForKey: @"fromValue"];
+//            NSArray *toVArr = [item objectForKey: @"toValue"];
+//            NSArray *xArr = [item objectForKey: @"x"];
+//            NSArray *yArr = [item objectForKey: @"y"];
+//            NSArray *heightArr = [item objectForKey: @"height"];
+//            if([addressPatArr isEqual:@"/pushbutton"]){
+//                
+//            }
+//            NSLog(@"addressPattern: %@", addressPatArr);
+//            NSLog(@"width: %@", widthArr);
+//            NSLog(@"type: %@", typeArr);
+//            NSLog(@"from: %@", fromVArr);
+//            NSLog(@"to: %@", toVArr);
+//            NSLog(@"x: %@", xArr);
+//            NSLog(@"y: %@", yArr);
+//            NSLog(@"height: %@", heightArr);
+//        }
+//    }
 
     return YES;
 //------------------------------------------------------------------------

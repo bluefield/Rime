@@ -16,6 +16,7 @@
 @interface ViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate>{
     NSString *ip;
     long port;
+    
     //ConnectViewController *appDel;
 }
 
@@ -40,6 +41,10 @@
 -(void)gotoConnection;
 -(void)getControls;
 -(void) saveControls:(CGFloat) debtAmount forName:(NSString *) ControlName;
+-(void)readJSON;
+-(void)loadUI;
+-(void)writeJSON;
+-(void)readtest;
 
 @end
 
@@ -55,6 +60,12 @@
 @property (nonatomic, retain) NSString *property;
 
 @end
+@interface UISwitch(Property)
+
+@property (nonatomic, retain) NSString *property;
+
+@end
+
 
 //@interface ConnectViewController : UIViewController <UINavigationControllerDelegate> {
 //    //UIButton *UIButton *gotoAnotherView;;
