@@ -23,8 +23,10 @@
 
 @implementation AppDelegate
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+  
     ViewController *viewController = [[ViewController alloc] init];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -115,6 +117,36 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSError *error = nil;
+    ViewController *instance=[[ViewController alloc] init];
+    //UInt16 port=instance.connection.connectedPort;
+   // NSLog(@"connected to port:%hu", port );
+
+    if([instance.connection bindToAddress:nil port:11000 error:&error]){
+        NSLog(@"connected");
+    }
+    else{
+        [instance portBind];
+    }
+    
+//    NSLog(@"Active");
+//    NSError *error = nil;
+//    appDel.connection = [[OSCConnection alloc] init];
+//    appDel.connection.delegate = self;
+//    appDel.connection.continuouslyReceivePackets = YES;
+//    
+//    
+//    if (![appDel.connection bindToAddress:nil port:11000 error:&error])
+//    {
+//        NSLog(@"Could not bind UDP connection: %@", error);
+//    }
+//    [appDel.connection receivePacket];
+
+      
+    
+    
+
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

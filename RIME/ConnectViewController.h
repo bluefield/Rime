@@ -17,8 +17,9 @@
 #import <AVFoundation/AVAudioSession.h>
 #import <CoreMotion/CoreMotion.h>
 
-@protocol ConnectViewControllerDelegate;
-@interface ConnectViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate, UIApplicationDelegate> {
+
+
+@interface ConnectViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate > {
     
     
     NSString *ip;
@@ -31,19 +32,24 @@
     UITextField *iptextField;
     UITextField *porttextField;
     UITextField *idtextField;
-    //__unsafe_unretained id<ConnectViewControllerDelegate> delegate;
+  
 
 }
 
-//@property (nonatomic, unsafe_unretained) id<ConnectViewControllerDelegate> delegate;
+
 @property (nonatomic, retain) NSString* ip;
 @property (nonatomic, retain) NSNumber* port;
 
 @property OSCConnection *connection;
 
 - (IBAction)cbuttonPressed:(UIButton *)button;
+- (IBAction)dbuttonPressed:(UIButton *)button;
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (void)resetView;
+
+
+
 
 @end
 

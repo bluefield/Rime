@@ -12,10 +12,11 @@
 #import "CocoaOSC.h"
 #import "CoreDataHelper.h"
 #import "AsyncUdpSocket.h"
+#import "ViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationBarDelegate>{
+@interface AppDelegate : UIResponder <UINavigationBarDelegate>{
 
-    
+   
     
 }
 

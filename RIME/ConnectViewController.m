@@ -156,9 +156,27 @@
     [connectbutton setTitle:@"Connect" forState:UIControlStateNormal];
     [connectbutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //[connectbutton setBackgroundColor:[UIColor blackColor]];
-    [connectbutton setBackgroundImage:[UIImage imageNamed:@"blackButton.png"] forState:UIControlStateNormal];
+    [connectbutton setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
     
-  
+    UIButton *disconnectbutton =
+    [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    disconnectbutton.frame = CGRectMake(90.0f, 260.0f, 100.0f, 40.0f);
+    [disconnectbutton addTarget:self
+                      action:@selector(dbuttonPressed:)
+            forControlEvents:UIControlEventTouchUpInside];
+    [disconnectbutton setTitle:@"Disconnect" forState:UIControlStateNormal];
+    [disconnectbutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //[connectbutton setBackgroundColor:[UIColor blackColor]];
+    [disconnectbutton setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
+    
+   
+    
+    
+   
+
+    
+    
     [self.view addSubview:idtextField];
     [self.view addSubview:iptextField];
     [self.view addSubview:porttextField];
@@ -168,6 +186,8 @@
 
     [self.view addSubview:self.label];
     [self.view addSubview:connectbutton];
+    [self.view addSubview:disconnectbutton];
+    
    //---------------------------------------------------------------------------------------
     
     
@@ -263,6 +283,7 @@
                                            selector:@selector(updateMotionData:)
                                            userInfo:nil
                                             repeats:YES];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:ip forKey:@"ip"];
@@ -285,6 +306,11 @@
     //[delegate ConnectViewControllerDidFinish:self];
 
     
+}
+- (IBAction)dbuttonPressed:(UIButton *)button {
+    
+    [timer invalidate];
+
 }
 
 //make keyboard dissapear when return is pressed
@@ -373,6 +399,10 @@
     [porttextField resignFirstResponder];
 
 }
+
+
+
+
 
 
 

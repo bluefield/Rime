@@ -85,7 +85,7 @@ static char UIB_PROPERTY_KEY;
 
 @implementation ViewController
 
-    ConnectViewController *appDel;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,11 +94,10 @@ static char UIB_PROPERTY_KEY;
     [self loadUI];
   
     
+
     
     
-    appDel=(ConnectViewController *)[[UIApplication sharedApplication]delegate];
-    
-  
+
    
     
     self.title = @"RIME";
@@ -184,6 +183,7 @@ static char UIB_PROPERTY_KEY;
     
    //[self createButton: @"button2" xposition:0.0 yposition:(300.0) height:(40.0) width:100.0];
     //[self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
+//    [self createHSlider:@"Testslider2" xposition:10 yposition:500 height:300 width:20 to:50 from:0 addressPat:@"/slider0"];
     //----------------------------------------------------------------------------------
     
 }
@@ -234,6 +234,7 @@ static char UIB_PROPERTY_KEY;
     NSLog(@"ip:%@ port:%ld", ip, port);
 
 }
+//toggle button action
 - (IBAction)TbuttonReleased:(UIButton*)button withEvent:(UIEvent *)event {
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = button.property;
@@ -274,6 +275,7 @@ static char UIB_PROPERTY_KEY;
     [self.connection sendPacket:message toHost:ip port:port];
    
 }
+//toggle switch action
 - (IBAction)changeSwitch:(UISwitch *)Switch{
     
     if([Switch isOn]){
@@ -297,6 +299,7 @@ static char UIB_PROPERTY_KEY;
 
 //------------------Create Controls functions---------------------------------
 
+//create a toggle button
 - (void) createTButton:(NSString*) bname xposition:(float) x yposition:(float) y
                height:(float) height width:(float)width addressPat: (NSString *) addressPat{
     
@@ -324,7 +327,7 @@ static char UIB_PROPERTY_KEY;
 }
 
 
-
+//create a simple PUSH Button
 
 - (void) createButton:(NSString*) bname xposition:(float) x yposition:(float) y
                 height:(float) height width:(float)width addressPat: (NSString *) addressPat {
@@ -351,7 +354,7 @@ static char UIB_PROPERTY_KEY;
     
 
 }
-
+//create vertical Slider
 -(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat{
     
     CGRect frame = CGRectMake(x, y, height, width);
@@ -367,6 +370,7 @@ static char UIB_PROPERTY_KEY;
     slider.transform = trans;
     [self.view addSubview:slider];
 }
+//create horizontal Slider
 -(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat{
     
     CGRect frame = CGRectMake(x, y, width, height);
@@ -381,6 +385,7 @@ static char UIB_PROPERTY_KEY;
    
     [self.view addSubview:slider];
 }
+//create toggle SWITCH
 -(void) createSwitch:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width addressPat: (NSString *) addressPat{
         UISwitch *Switch = [[UISwitch alloc] initWithFrame:CGRectMake(x, y, width, height)];
         [Switch addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
@@ -390,12 +395,12 @@ static char UIB_PROPERTY_KEY;
 
 }
 
-
+//navigate to the Connection Screen
 -(void)gotoConnection{
     ConnectViewController *connectView = [[ConnectViewController alloc] init];
     [self.navigationController pushViewController:connectView animated:NO];
 }
-
+//constantly receive packet
 - (void)oscConnection:(OSCConnection *)con didReceivePacket:(OSCPacket *)packet fromHost:(NSString *)host port:(UInt16)port
 {
     
@@ -415,11 +420,6 @@ static char UIB_PROPERTY_KEY;
     }
   
 }
-
-
-#define DEBTS_LIST_KEY @"listOfAllDebts"
-#define DEBTOR_NAME_KEY @"debtorName"
-#define DEBT_AMOUNT_KEY @"amountOfDebt"
 
 
 -(void)readJSON:(NSString *) jsonString{
@@ -484,10 +484,13 @@ static char UIB_PROPERTY_KEY;
             NSLog(@"y: %ld", (long)yArr);
             NSLog(@"height: %ld", (long)heightArr);
         }
+        
     }
 
 
 }
+
+//clear the UI screen and load the new content or the latest UI
 -(void)loadUI{
     
 //    NSError *error = nil;
@@ -502,7 +505,7 @@ static char UIB_PROPERTY_KEY;
 //    }
 //    [self.connection receivePacket];
     [self resetView];
-    
+   
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSObject* object=[defaults objectForKey:@"JSON"];
@@ -522,6 +525,7 @@ static char UIB_PROPERTY_KEY;
     //[self readtest];
 
 }
+//bind UDP port
 -(void)portBind{
     NSError *error = nil;
     self.connection = [[OSCConnection alloc] init];
@@ -537,6 +541,7 @@ static char UIB_PROPERTY_KEY;
 
 
 }
+//useless function that hopefully writes to a file stored in documents
 -(void)writeJSON{
 //    NSString *str =@"hello"; //Your text or XML
 //    [str writeToFile:[[NSBundle mainBundle] pathForResource:@"test" ofType:@"JSON"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -561,7 +566,7 @@ static char UIB_PROPERTY_KEY;
 
 
 }
-
+//function that reads a file from the documents folder
 -(void)readtest{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -574,6 +579,7 @@ static char UIB_PROPERTY_KEY;
 
 
 }
+//clear everything on the UI view
 -(void)resetView{
 NSArray *viewsToRemove = [self.view subviews];
 for (UIView *v in viewsToRemove) {

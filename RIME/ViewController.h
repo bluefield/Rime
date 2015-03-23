@@ -11,14 +11,15 @@
 #import "ConnectViewController.h"
 
 //#import "ConnectivityInfo.h"
+
 @class OSCConnection;
 
-@interface ViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate>{
+@interface ViewController : UIViewController <UITextFieldDelegate, OSCConnectionDelegate, UIApplicationDelegate>{
     NSString *ip;
     long port;
     
     
-    //ConnectViewController *appDel;
+    
 }
 
 
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) UISlider *slider;
 @property (nonatomic, strong) NSString *stringID;
 @property OSCConnection *connection;
+
+
 
 
 
@@ -72,10 +75,4 @@
 @end
 
 
-//@interface ConnectViewController : UIViewController <UINavigationControllerDelegate> {
-//    //UIButton *UIButton *gotoAnotherView;;
-//    //AnotherViewController *anotherView;
-//    ConnectViewController *connectView;
-//   
-//}
 
