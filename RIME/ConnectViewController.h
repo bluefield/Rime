@@ -48,6 +48,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (void)resetView;
 
+- (NSString *)getIPAddress;
+
 
 
 
