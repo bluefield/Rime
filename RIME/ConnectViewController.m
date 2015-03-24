@@ -88,10 +88,15 @@
     
     // Set the toolbar as accessory view of an UITextField object
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if([[defaults objectForKey:@"ip"] isEqual:NULL]){
+    NSObject* object=[defaults objectForKey:@"ip"];
+    if(object==nil){
         [defaults setObject:@"192.168.1.1" forKey:@"ip"];
     }
-   
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    
+
     
     ip=[defaults objectForKey:@"ip"];
     iptextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 100, 200, 30)];
@@ -131,7 +136,8 @@
         NSString *myString = [port stringValue];
         porttextField.text=[porttextField.text stringByAppendingString:myString];
     }
-    if([[defaults objectForKey:@"ID"]isEqual:NULL]){
+    object=[defaults objectForKey:@"ID"];
+    if(object==nil){
         [defaults setObject:@"David" forKey:@"ID"];
     }
     
@@ -151,7 +157,7 @@
     UIButton *connectbutton =
     [UIButton buttonWithType:UIButtonTypeCustom];
     
-    connectbutton.frame = CGRectMake(90.0f, 210.0f, 100.0f, 40.0f);
+    connectbutton.frame = CGRectMake(100.0f, 210.0f, 100.0f, 40.0f);
     [connectbutton addTarget:self
                action:@selector(cbuttonPressed:)
      forControlEvents:UIControlEventTouchUpInside];
@@ -188,7 +194,7 @@
 
     [self.view addSubview:self.label];
     [self.view addSubview:connectbutton];
-    [self.view addSubview:disconnectbutton];
+    //[self.view addSubview:disconnectbutton];
     
    //---------------------------------------------------------------------------------------
     
@@ -277,14 +283,20 @@
     port = [f numberFromString:porttextField.text];
     //port= porttextField.text;
     ID =idtextField.text;
-
+    
+    if([self.timer isValid]){
+        NSLog(@"timer still active");
+    }
+    else{
+        self.timer=[NSTimer scheduledTimerWithTimeInterval:0.06f
+                                                    target:self
+                                                  selector:@selector(updateMotionData:)
+                                                  userInfo:nil
+                                                   repeats:YES];
+    }
     
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.06f
-                                             target:self
-                                           selector:@selector(updateMotionData:)
-                                           userInfo:nil
-                                            repeats:YES];
+    
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -303,20 +315,23 @@
     {
         NSLog(@"Could not bind UDP connection: %@", error);
     }
-    
-    NSString *tempIp;
-    tempIp= [self getIPAddress];
-    NSLog(@"ip:%@", tempIp);
-    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-    message.address = @"/ip";
-    [message addString:tempIp];
-    [self.connection sendPacket:message toHost:ip port:tempPort];
+//    
+//    NSString *tempIp;
+//    tempIp= [self getIPAddress];
+//    NSLog(@"ip:%@", tempIp);
+//    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
+//    message.address = @"/ip";
+//    [message addString:tempIp];
+//    [self.connection sendPacket:message toHost:ip port:tempPort];
 
     
 }
 - (IBAction)dbuttonPressed:(UIButton *)button {
+   
+    NSLog(@"function is being called");
+    [self.timer invalidate];
     
-    [timer invalidate];
+    self.timer=nil;
 
 }
 

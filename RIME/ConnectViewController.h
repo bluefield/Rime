@@ -26,7 +26,7 @@
     NSNumber *port;
     NSString *ID;
     CMMotionManager *motionManager;
-    NSTimer *timer;
+    //NSTimer *timer;
     AVAudioRecorder *audioRecorder;
     AVAudioSession *audioSession;
     UITextField *iptextField;
@@ -41,6 +41,8 @@
 @property (nonatomic, retain) NSNumber* port;
 
 @property OSCConnection *connection;
+@property (nonatomic, retain) NSTimer *timer;
+
 
 - (IBAction)cbuttonPressed:(UIButton *)button;
 - (IBAction)dbuttonPressed:(UIButton *)button;
