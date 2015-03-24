@@ -413,6 +413,7 @@ static char UIB_PROPERTY_KEY;
     
     UIButton *xyPad = [[UIButton alloc] initWithFrame:CGRectMake ( x, y, width, height)];
     [xyPad addTarget:self action:@selector(xyPadAction:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+    [xyPad addTarget:self action:@selector(xyPadAction:withEvent:) forControlEvents:UIControlEventTouchUpInside];
     [xyPad setBackgroundColor:[UIColor grayColor]];
     xyPad.property = addressPat;
     [self.view addSubview:xyPad];
