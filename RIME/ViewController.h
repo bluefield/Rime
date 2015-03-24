@@ -45,6 +45,7 @@
                 height:(float) height width:(float)width addressPat: (NSString *) addressPat;
 -(void) createHSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
 -(void) createVSlider:(NSString *) stitle xposition:(int)x yposition:(int)y height:(int)height width:(int)width to:(int)to from:(int)from addressPat: (NSString *) addressPat;
+-(void) createXYPad:(NSString *) xytitle xposition:(int)x yposition:(int)y height:(int)height width:(int) width to:(int)to from:(int)from addressPat:(NSString *) addressPat;
 -(void)gotoConnection;
 
 -(void)readJSON:(NSString *) jsonString;
