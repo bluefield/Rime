@@ -16,6 +16,7 @@
 #import "Sensors.h"
 #import <CoreMotion/CoreMotion.h>
 #import <GCDAsyncUdpSocket.h>
+#import "XYPad.h"
 
 
 
@@ -185,7 +186,6 @@ static char UIB_PROPERTY_KEY;
     //[self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
     //    [self createHSlider:@"Testslider2" xposition:10 yposition:500 height:300 width:20 to:50 from:0 addressPat:@"/slider0"];
     //----------------------------------------------------------------------------------
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -194,17 +194,26 @@ static char UIB_PROPERTY_KEY;
 }
 //----------------------------------Controll Actions-------------------------------
 
-- (IBAction)xyPadAction:(UIButton *)sender withEvent:(UIEvent *) event {
-    UIButton *button = (UIButton *)sender;
-    UITouch *touch = [[event touchesForView:button] anyObject];
-    CGPoint location = [touch locationInView:button];
-    NSLog(@"Location in button: %f, %f", location.x, location.y);
+- (IBAction)xyPadAction:(XYPad *)sender withEvent:(UIEvent *) event {
+    XYPad *xyPad = (XYPad *)sender;
+    UITouch *touch = [[event touchesForView:xyPad] anyObject];
+    CGPoint location = [touch locationInView:xyPad];
+    
+    double adjustedWidth = (((location.x/sender.width)*(sender.to - sender.from)) + sender.from);
+    double adjustedHeight = (((location.y/sender.height)*(sender.to - sender.from)) + sender.from);
     
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = sender.property;
-    [message addFloat:location.x];
-    [message addFloat:location.y];
-    [self.connection sendPacket:message toHost:ip port:port];
+    
+    if(adjustedWidth >= sender.from && adjustedWidth <= sender.to ){
+        if(adjustedHeight >= sender.from && adjustedHeight <= sender.to){
+            NSLog(@"X: %g Y: %g", adjustedWidth, adjustedHeight);
+            [message addFloat:adjustedWidth];
+            [message addFloat:adjustedHeight];
+            [self.connection sendPacket:message toHost:ip port:port];
+        }
+    }
+    
 }
 
 - (IBAction)buttonPressing:(UIButton*)button {
@@ -411,12 +420,18 @@ static char UIB_PROPERTY_KEY;
 //create xyPad
 -(void) createXYPad:(NSString *) xytitle xposition:(int)x yposition:(int)y height:(int)height width:(int) width to:(int)to from:(int)from addressPat:(NSString *) addressPat{
     
-    UIButton *xyPad = [[UIButton alloc] initWithFrame:CGRectMake ( x, y, width, height)];
+    XYPad *xyPad = [[XYPad alloc] initWithFrame:CGRectMake ( x, y, width, height)];
     [xyPad addTarget:self action:@selector(xyPadAction:withEvent:) forControlEvents:UIControlEventTouchDragInside];
     [xyPad addTarget:self action:@selector(xyPadAction:withEvent:) forControlEvents:UIControlEventTouchUpInside];
     [xyPad setBackgroundColor:[UIColor grayColor]];
     xyPad.property = addressPat;
+    xyPad.to = to;
+    xyPad.from = from;
+    xyPad.width = width;
+    xyPad.height = height;
+    xyPad.layer.cornerRadius = 5;
     [self.view addSubview:xyPad];
+    
 }
 
 //navigate to the Connection Screen
