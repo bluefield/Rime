@@ -23,6 +23,7 @@
 		6346D8561AB53A3A00E1530E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8551AB53A3A00E1530E /* AudioToolbox.framework */; };
 		6346D8581AB53A4C00E1530E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6346D8571AB53A4C00E1530E /* AVFoundation.framework */; };
 		635F19AA1ABE3CAB00FCF5AA /* JSON.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 635F19A91ABE3CAB00FCF5AA /* JSON.JSON */; };
+		63824EAA1AC8FE5E0098EB56 /* XYPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 63824EA91AC8FE5E0098EB56 /* XYPad.m */; };
 		63A501941AAD5BEA009BD989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501931AAD5BEA009BD989 /* main.m */; };
 		63A501971AAD5BEA009BD989 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501961AAD5BEA009BD989 /* AppDelegate.m */; };
 		63A5019A1AAD5BEA009BD989 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A501991AAD5BEA009BD989 /* ViewController.m */; };
@@ -78,6 +79,8 @@
 		6346D8551AB53A3A00E1530E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6346D8571AB53A4C00E1530E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		635F19A91ABE3CAB00FCF5AA /* JSON.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSON.JSON; sourceTree = "<group>"; };
+		63824EA81AC8FE5E0098EB56 /* XYPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPad.h; sourceTree = "<group>"; };
+		63824EA91AC8FE5E0098EB56 /* XYPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPad.m; sourceTree = "<group>"; };
 		63A5018E1AAD5BEA009BD989 /* RIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A501921AAD5BEA009BD989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A501931AAD5BEA009BD989 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				6346D83A1AB51BA600E1530E /* AsyncSocket */,
 				6346D8241AB51B7800E1530E /* CocoaOSC */,
 				63A501951AAD5BEA009BD989 /* AppDelegate.h */,
+				63824EA81AC8FE5E0098EB56 /* XYPad.h */,
+				63824EA91AC8FE5E0098EB56 /* XYPad.m */,
 				63A501961AAD5BEA009BD989 /* AppDelegate.m */,
 				6346D84D1AB527E700E1530E /* CoreDataHelper.h */,
 				63A501BA1AAD65DB009BD989 /* ConnectViewController.h */,
@@ -355,6 +360,7 @@
 				63A5019A1AAD5BEA009BD989 /* ViewController.m in Sources */,
 				6346D8501AB5338F00E1530E /* Sensors.mm in Sources */,
 				6346D8471AB51BAF00E1530E /* GCDAsyncUdpSocket.m in Sources */,
+				63824EAA1AC8FE5E0098EB56 /* XYPad.m in Sources */,
 				6346D83F1AB51BA600E1530E /* AsyncSocket.m in Sources */,
 				6346D8391AB51B7900E1530E /* OSCPacket.m in Sources */,
 				6346D8381AB51B7900E1530E /* OSCDispatcher.m in Sources */,

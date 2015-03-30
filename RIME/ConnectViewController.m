@@ -25,14 +25,16 @@
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UILabel *labelip;
 @property (nonatomic, strong) UILabel *labelport;
-@property (nonatomic, strong) UILabel *labelid;
+@property (nonatomic, strong) UILabel *labeldeviceip;
+@property (nonatomic, strong) UILabel *ipaddress;
+
 
 
 
 @end
 
 @implementation ConnectViewController
-//@synthesize delegate;
+
 @synthesize ip;
 @synthesize port;
 
@@ -44,24 +46,13 @@
 
 
     NSError *error = nil;
-    //---------------bind to UDPserver------------
-//    self.connection = [[OSCConnection alloc] init];
-//    self.connection.delegate = self;
-//    //[self.connection bindToAddress:@"206.87.154.16" port:12000 error:&error];
-//    
-//    if (![self.connection bindToAddress:nil port:12000 error:&error])
-//    {
-//        NSLog(@"Could not bind UDP connection: %@", error);
-//    }
 
-    //------------------------------------------------
+    
     
     
     
     //-------Connect View content------------------------------------------------
-//    self.label = [[UILabel alloc]
-//                  initWithFrame:CGRectMake(90.0f, 60.0f, 200.0f, 30.0f)];
-//    self.label.text = @"Connection Setup";
+
     
     self.labelip = [[UILabel alloc]
                   initWithFrame:CGRectMake(10.0f, 100.0f, 200.0f, 30.0f)];
@@ -70,9 +61,13 @@
                     initWithFrame:CGRectMake(10.0f, 130.0f, 200.0f, 30.0f)];
     self.labelport.text = @"Port:";
     
-    self.labelid = [[UILabel alloc]
+    self.labeldeviceip = [[UILabel alloc]
                       initWithFrame:CGRectMake(10.0f, 160.0f, 200.0f, 30.0f)];
-    self.labelid.text = @"Device ID:";
+    self.labeldeviceip.text = @"Device IP:";
+    self.ipaddress = [[UILabel alloc]
+                          initWithFrame:CGRectMake(110, 160, 200, 30)];
+    NSString *temp=[self getIPAddress];
+    self.ipaddress.text=temp;
     
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 35.0f)];
     toolbar.barStyle=UIBarStyleBlackOpaque;
@@ -136,22 +131,7 @@
         NSString *myString = [port stringValue];
         porttextField.text=[porttextField.text stringByAppendingString:myString];
     }
-    object=[defaults objectForKey:@"ID"];
-    if(object==nil){
-        [defaults setObject:@"David" forKey:@"ID"];
-    }
-    
-    ID=[defaults objectForKey:@"ID"];
-    idtextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 160, 200, 30)];
-    idtextField.borderStyle = UITextBorderStyleRoundedRect;
-    idtextField.font = [UIFont systemFontOfSize:15];
-    idtextField.placeholder = @"enter DEVICE ID";
-    idtextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    idtextField.delegate = self;
-    if ([idtextField.text length] > 0 || idtextField.text != nil || [idtextField.text isEqual:@""] == FALSE)
-    {
-        idtextField.text=[idtextField.text stringByAppendingString:ID];
-    }
+
     
     
     UIButton *connectbutton =
@@ -188,7 +168,9 @@
     [self.view addSubview:idtextField];
     [self.view addSubview:iptextField];
     [self.view addSubview:porttextField];
-    [self.view addSubview:self.labelid];
+    [self.view addSubview:self.labeldeviceip];
+    [self.view addSubview:self.ipaddress];
+
     [self.view addSubview:self.labelport];
     [self.view addSubview:self.labelip];
 
@@ -245,9 +227,7 @@
     audioRecorder.meteringEnabled = YES;
     
     audioSession = [AVAudioSession sharedInstance];
-    //[[AVAudioSession sharedInstance]
-    //setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    //[audioSession setCategory:AVAudioSessionCategoryRecord error: nil];
+
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: nil];
     [audioSession setActive:YES error: nil];
     [audioRecorder updateMeters];
@@ -281,7 +261,7 @@
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
     port = [f numberFromString:porttextField.text];
-    //port= porttextField.text;
+    
     ID =idtextField.text;
     
     if([self.timer isValid]){
@@ -304,25 +284,17 @@
     [defaults setObject:ID forKey:@"ID"];
     [defaults setObject:port forKey:@"port"];
     
-    //iptextField.text=[iptextField.text stringByAppendingString:ip];
     
     self.connection = [[OSCConnection alloc] init];
     self.connection.delegate = self;
-    //[self.connection bindToAddress:@"206.87.154.16" port:12000 error:&error];
+
     NSError *error = nil;
     long tempPort = [port longValue];
     if (![self.connection bindToAddress:nil port:tempPort error:&error])
     {
         NSLog(@"Could not bind UDP connection: %@", error);
     }
-//    
-//    NSString *tempIp;
-//    tempIp= [self getIPAddress];
-//    NSLog(@"ip:%@", tempIp);
-//    OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
-//    message.address = @"/ip";
-//    [message addString:tempIp];
-//    [self.connection sendPacket:message toHost:ip port:tempPort];
+
 
     
 }
@@ -406,8 +378,8 @@
     //uncomment below if need update
     //[audioRecorder updateMeters];
     //[audioRecorder record];
-    float averagedBLevel = [audioRecorder averagePowerForChannel:0];
-    float peakdBLevel = [audioRecorder peakPowerForChannel:0];
+    //float averagedBLevel = [audioRecorder averagePowerForChannel:0];
+    //float peakdBLevel = [audioRecorder peakPowerForChannel:0];
     //NSLog(@"dBLevel: x = %f, y = %f", averagedBLevel, peakdBLevel);
     
     long tempPort = [port longValue];

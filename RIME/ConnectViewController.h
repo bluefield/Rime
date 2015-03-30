@@ -26,7 +26,7 @@
     NSNumber *port;
     NSString *ID;
     CMMotionManager *motionManager;
-    //NSTimer *timer;
+   
     AVAudioRecorder *audioRecorder;
     AVAudioSession *audioSession;
     UITextField *iptextField;
@@ -57,8 +57,5 @@
 
 @end
 
-//@protocol ConnectViewControllerDelegate
-//- (void)ConnectViewControllerDidFinish:(ConnectViewController*)ConnectViewController;
-//@end
 
 

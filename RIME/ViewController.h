@@ -50,8 +50,8 @@
 
 -(void)readJSON:(NSString *) jsonString;
 -(void)loadUI;
--(void)writeJSON;
--(void)readtest;
+
+
 -(void)resetView;
 -(void)portBind;
 

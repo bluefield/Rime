@@ -112,80 +112,7 @@ static char UIB_PROPERTY_KEY;
     UIBarButtonItem *eng_btn = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = eng_btn;
     
-    UIButton *lbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [lbtn setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 30.0f)];
-    [lbtn setTitle:@"Load UI" forState:UIControlStateNormal];
-    lbtn.titleLabel.font = [UIFont systemFontOfSize:10];
-    
-    [lbtn addTarget:self action:@selector(loadUI) forControlEvents:UIControlEventTouchUpInside];
-    [lbtn setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
-    UIBarButtonItem *leng_btn = [[UIBarButtonItem alloc] initWithCustomView:lbtn];
-    self.navigationItem.leftBarButtonItem = leng_btn;
-    
-    
-    
-    //------------------------test view setup---------------
-    
-    //button function
-    //    UIButton *button =
-    //    [UIButton buttonWithType:UIButtonTypeCustom];
-    //     button.frame = CGRectMake(110.0f, 200.0f, 100.0f, 40.0f);
-    //     [button setBackgroundImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
-    //
-    //    button.property=@"button0";
-    //    [button addTarget:self
-    //               action:@selector(buttonReleased:)
-    //     forControlEvents:UIControlEventTouchUpInside];
-    //    [button setTitle:@"button0" forState:UIControlStateNormal];
-    //    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //    button.property=@"/pushButton";
-    //[button setBackgroundColor:[UIColor blueColor]];
-    
-    
-    //label function
-    //    self.label = [[UILabel alloc]
-    //                  initWithFrame:CGRectMake(115.0f, 150.0f, 200.0f, 30.0f)];
-    //    self.label.text = @"Hello World!";
-    //        [self.view addSubview:self.label];
-    //self.navigationItem.title= @"ViewController";
-    
-    //slider function
-    
-    //        CGRect frame = CGRectMake(10, 240, 100.0, 50.0);
-    //        UISlider *slider = [[UISlider alloc] initWithFrame:frame];
-    //        [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
-    //        [slider setBackgroundColor:[UIColor clearColor]];
-    //        slider.minimumValue = 0.0;
-    //        slider.maximumValue = 50.0;
-    //        slider.continuous = YES;
-    //        slider.value = 25.0;
-    //
-    //text field
-    //    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 70, 300, 40)];
-    //    textField.borderStyle = UITextBorderStyleRoundedRect;
-    //    textField.font = [UIFont systemFontOfSize:15];
-    //    textField.placeholder = @"enter text";
-    //    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    //    textField.keyboardType = UIKeyboardTypeDefault;
-    //    textField.returnKeyType = UIReturnKeyDone;
-    //    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    //    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    //textField.delegate = self;
-    
-    //    UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(10, 110, 0, 0)];
-    //    [mySwitch addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
-    //    mySwitch.property=@"Switch0";
-    //    [self.view addSubview:mySwitch];
-    //[self.view addSubview:textField];
-    
-    
-    //[self.view addSubview:slider];
-    //[self.view addSubview:button];
-    
-    //[self createButton: @"button2" xposition:0.0 yposition:(300.0) height:(40.0) width:100.0];
-    //[self createTButton: @"/Tbutton1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0 addressPat:@"/toggleButton"];
-    //    [self createHSlider:@"Testslider2" xposition:10 yposition:500 height:300 width:20 to:50 from:0 addressPat:@"/slider0"];
-    //----------------------------------------------------------------------------------
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -219,7 +146,7 @@ static char UIB_PROPERTY_KEY;
 - (IBAction)buttonPressing:(UIButton*)button {
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = button.property;
-    //[message addString:button.property];
+  
     [message addInt:1];
     [self.connection sendPacket:message toHost:ip port:port];
     NSLog(@"Button is being Pressed!");
@@ -237,6 +164,7 @@ static char UIB_PROPERTY_KEY;
     
     
     NSLog(@"Button Pressed!");
+    //call functions below to test each control's property
     //[self createButton: @"button1" xposition:0.0 yposition:(350.0) height:(100.0) width:40.0];
     //[self createVSlider:@"Testslider" xposition:10 yposition:450 height:300 width:20];
     //[self createHSlider:@"Testslider2" xposition:10 yposition:400 height:300 width:20];
@@ -260,7 +188,7 @@ static char UIB_PROPERTY_KEY;
 - (IBAction)TbuttonReleased:(UIButton*)button withEvent:(UIEvent *)event {
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = button.property;
-    //[message addString:button.property];
+   
     
     
     if(button.selected==YES){
@@ -283,15 +211,12 @@ static char UIB_PROPERTY_KEY;
     
     NSLog(@"val: %f",slider.value);
     NSLog(@"slider ID is:%@", slider.property);
-    //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //    ip=[defaults objectForKey:@"ip"];
-    //    NSNumber *tempPort=[defaults objectForKey:@"port"];
-    //    port = [tempPort longValue];
+
     
     
     OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
     message.address = slider.property;
-    //[message addString:@"testslider"];
+    
     [message addFloat:slider.value];
     
     [self.connection sendPacket:message toHost:ip port:port];
@@ -304,15 +229,15 @@ static char UIB_PROPERTY_KEY;
         // Execute any code when the switch is ON
         OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
         message.address = Switch.property;
-        //[message addString:Switch.property];
+     
         [message addInt:1];
         [self.connection sendPacket:message toHost:ip port:port];
         NSLog(@"%@: Switch is ON", Switch.property);
     } else{
-        // Execute any code when the switch is OFF
+      
         OSCMutableMessage *message = [[OSCMutableMessage alloc] init];
         message.address = Switch.property;
-        //[message addString:Switch.property];
+       
         [message addInt:0];
         [self.connection sendPacket:message toHost:ip port:port];
         NSLog(@"Switch is OFF");
@@ -343,9 +268,6 @@ static char UIB_PROPERTY_KEY;
     button.property=addressPat;
     
     
-    //NSLog(@"button id is: %d", button.property);
-    
-    
 }
 
 
@@ -370,9 +292,6 @@ static char UIB_PROPERTY_KEY;
     
     [self.view addSubview:button];
     button.property=addressPat;
-    
-    
-    //NSLog(@"button id is: %d", button.property);
     
     
 }
@@ -464,15 +383,11 @@ static char UIB_PROPERTY_KEY;
 -(void)readJSON:(NSString *) jsonString{
     
     NSError *error=nil;
-    //NSString *str=[[NSBundle mainBundle] pathForResource:@"JSON" ofType:@"JSON"];
+   
     
     NSData *jsonData=[jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
-    //[NSData dataWithContentsOfFile:str];
-    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.json-generator.com/api/json/get/bGHMXnmbAO?indent=2"]];
-    //NSData *jsonData = [NSData dataWithContentsOfURL:url];
     
-    //NSData *jsonData=[NSKeyedUnarchiver unarchiveObjectWithData:jsonarray];
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     if (!JSON) {
         NSLog(@"Error parsing JSON: %@", error);
@@ -490,8 +405,7 @@ static char UIB_PROPERTY_KEY;
             NSInteger heightArr = [[item objectForKey: @"height"] integerValue];
             
             if([typeArr isEqual:@"Push Button"]){
-                //temp=xArr;
-                //NSInteger xValue = [[temp objectAtIndex:0] integerValue];
+                
                 [self createButton: titleArr xposition:xArr yposition:yArr+70 height:heightArr width:widthArr addressPat:addressPatArr];
                 NSLog(@"hurray: %ld", (long)fromVArr);
             }
@@ -507,7 +421,7 @@ static char UIB_PROPERTY_KEY;
                 
             }
             else if([typeArr isEqual:@"SliderV"]){
-                [self createVSlider:titleArr xposition:(int)xArr-50 yposition:(int)yArr+110 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
+                [self createVSlider:titleArr xposition:(int)xArr-30 yposition:(int)yArr+100 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
                 
             }
             else if([typeArr isEqual:@"XY Pad"]){
@@ -534,18 +448,7 @@ static char UIB_PROPERTY_KEY;
 
 //clear the UI screen and load the new content or the latest UI
 -(void)loadUI{
-    
-    //    NSError *error = nil;
-    //    self.connection = [[OSCConnection alloc] init];
-    //    self.connection.delegate = self;
-    //    self.connection.continuouslyReceivePackets = YES;
-    //
-    //
-    //    if (![self.connection bindToAddress:nil port:11000 error:&error])
-    //    {
-    //        NSLog(@"Could not bind UDP connection: %@", error);
-    //    }
-    //    [self.connection receivePacket];
+  
     [self resetView];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -559,12 +462,7 @@ static char UIB_PROPERTY_KEY;
     }
     temp=[defaults objectForKey:@"JSON"];
     [self readJSON:temp];
-    
-    
-    //[self readJSON];
-    
-    //[self writeJSON];
-    //[self readtest];
+
     
 }
 //bind UDP port
@@ -583,44 +481,8 @@ static char UIB_PROPERTY_KEY;
     
     
 }
-//useless function that hopefully writes to a file stored in documents
--(void)writeJSON{
-    //    NSString *str =@"hello"; //Your text or XML
-    //    [str writeToFile:[[NSBundle mainBundle] pathForResource:@"test" ofType:@"JSON"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"function is called");
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test.JSON"];
-    //NSLog(@"filePath %@", filePath);
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) { // if file is not exist, create it.
-        NSString *helloStr = @"hello world";
-        NSError *error;
-        [helloStr writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    }
-    
-    if ([[NSFileManager defaultManager] isWritableFileAtPath:filePath]) {
-        NSLog(@"Writable");
-    }else {
-        NSLog(@"Not Writable");
-    }
-    
-    
-}
-//function that reads a file from the documents folder
--(void)readtest{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test.JSON"];
-    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-    
-    
-    NSLog(@"Value written is: %@", content);
-    
-    
-    
-}
+
+
 //clear everything on the UI view
 -(void)resetView{
     NSArray *viewsToRemove = [self.view subviews];
