@@ -407,7 +407,6 @@ static char UIB_PROPERTY_KEY;
             if([typeArr isEqual:@"Push Button"]){
                 
                 [self createButton: titleArr xposition:xArr yposition:yArr+70 height:heightArr width:widthArr addressPat:addressPatArr];
-                NSLog(@"hurray: %ld", (long)fromVArr);
             }
             else if([typeArr isEqual:@"Toggle"]){
                 
@@ -421,7 +420,7 @@ static char UIB_PROPERTY_KEY;
                 
             }
             else if([typeArr isEqual:@"SliderV"]){
-                [self createVSlider:titleArr xposition:(int)xArr-30 yposition:(int)yArr+100 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
+                [self createVSlider:titleArr xposition:(int)xArr-35 yposition:(int)yArr+100 height:(int)heightArr width:(int)widthArr to:(int)toVArr from:(int)fromVArr addressPat:addressPatArr];
                 
             }
             else if([typeArr isEqual:@"XY Pad"]){
@@ -467,17 +466,21 @@ static char UIB_PROPERTY_KEY;
 }
 //bind UDP port
 -(void)portBind{
+    
     NSError *error = nil;
+    
     self.connection = [[OSCConnection alloc] init];
     self.connection.delegate = self;
     self.connection.continuouslyReceivePackets = YES;
-    
+   
     
     if (![self.connection bindToAddress:nil port:11000 error:&error])
     {
         NSLog(@"Could not bind UDP connection: %@", error);
     }
     [self.connection receivePacket];
+    NSLog(@"Called in portbind");
+    
     
     
 }
